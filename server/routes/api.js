@@ -36,6 +36,7 @@ router.get("/", (req, res) => {
         res.send(data.rows);
       })
       .then(() => client.end());
+  connect(query);
 });
 
 module.exports = router;
