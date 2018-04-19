@@ -1,11 +1,23 @@
 const express = require("express");
 const router = express.Router();
+const { Client, Pool } = require("pg");
 
-// Error handling
-const sendError = (err, res) => {
-  response.status = 501;
-  response.message = typeof err == "object" ? err.message : err;
-  res.status(501).json(response);
+// connect to psql
+const connect = query => {
+  const client = new Client({
+    user: "postgres",
+    password: "fggrftdjtgdpjwpsgkwvx",
+    host: "taa.devel.bitmark.com",
+    database: "testdb"
+  });
+
+  client.connect(err => {
+    if (err) {
+      console.log("connection error", err.stack);
+    } else {
+      query(client);
+    }
+  });
 };
 
 // Response handling
@@ -17,7 +29,13 @@ let response = {
 
 // Get users
 router.get("/", (req, res) => {
-  res.send("api works");
+  const query = client =>
+    client
+      .query("SELECT * FROM blockchain.transaction ORDER BY tx_modified_at DESC LIMIT 1;")
+      .then(data => {
+        res.send(data.rows);
+      })
+      .then(() => client.end());
 });
 
 module.exports = router;
