@@ -40,7 +40,7 @@ const connect = query => {
   });
 };
 
-router.get("/", (req, res) => {
+router.get("/latest_transaction", (req, res) => {
   const query = client =>
     client
       .query(queryStr)
