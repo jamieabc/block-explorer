@@ -40,12 +40,32 @@ const connect = query => {
   });
 };
 
+// convert date to format of  May 2, 2015 10:49:19 AM
+const timeConverter = obj => {
+  const [week, month, day, year, time] = new Date(obj.tx_modified_at).toString().split(" ");
+  let [hour, minute, second] = time.split(":");
+  hour = parseInt(hour, 10);
+
+  const am = hour < 12;
+
+  // for hour, needs to transformm to 01, 02, etc.
+  if (am) {
+    hour = ("0" + hour).slice(-2);
+  } else {
+    hour = ("0" + (hour - 12 === 0 ? 12 : hour - 12)).slice(-2);
+  }
+
+  obj.timestamp = `${month} ${day}, ${year} ${hour}:${minute}:${second} ${am ? "AM" : "PM"}`;
+  return obj;
+};
+
 router.get("/latest_transaction", (req, res) => {
   const query = client =>
     client
       .query(queryStr)
       .then(data => {
-        res.send(data.rows);
+        // data.rows[0].timestamp = timeConverter(data.rows[0].tx_modified_at);
+        res.send(data.rows.map(timeConverter));
       })
       .then(() => client.end());
   connect(query);

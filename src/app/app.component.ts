@@ -8,9 +8,9 @@ import { DataService } from './data.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    result: Array<any>;
+    result: any;
 
     constructor(private _dataService: DataService) {
-        this._dataService.getLatestTransaction().subscribe(res => this.result = res);
+        this._dataService.getLatestTransaction().subscribe(res => this.result = res[0]);
     }
 }

@@ -5,17 +5,205 @@
 <!-- </div> -->
 <!-- <ul> -->
 <!--   <li *ngFor="let data of result">{{ data.tx_id }}</li> -->
-<!-- </ul> -->
+  <!-- </ul> -->
 
+<!-- <div class="container"> -->
+<!--   <div class="jumbotron"> -->
+<!--     <h1>Block {{result ? result.block_hash : ''}}</h1> -->
+<!--   </div> -->
+<!--   <div class="panel panel-primary"> -->
+<!--     <div class="panel-heading">BlockHash</div> -->
+<!--        <h3> -->
+<!--          123 -->
+<!--        </h3> -->
+<!--   </div> -->
+  <!-- </div> -->
 
-<div class="container">
-  <div class="jumbotron">
-    <h1>Block xxxx</h1>
+<h1 class="ng-binding">Block #{{result ? result.block_number : ''}}</h1>
+<div data-ng-if="block.hash" class="ng-scope">
+    <div class="well well-sm ellipsis">
+      <strong>BlockHash</strong>
+      <span class="txid text-muted ng-binding">{{result ? result.block_hash : ''}}</span>
+      <span class="btn-copy" clip-copy="block.hash"></span>
+    </div>
+    <h2 translate=""><span class="ng-scope">Summary</span></h2>
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table" style="table-layout: fixed">
+          <tbody>
+          <tr>
+            <td><strong translate=""><span class="ng-scope">Number Of Transactions</span></strong></td>
+            <td class="text-right text-muted ng-binding"></td>
+          </tr>
+          <tr>
+            <td><strong translate=""><span class="ng-scope">Height</span></strong></td>
+            <td class="text-right text-muted ng-binding">
+            </td>
+          </tr>
+          <tr>
+            <td><strong translate=""><span class="ng-scope">Block Reward</span></strong></td>
+            <td class="text-right text-muted ng-binding"> BTC</td>
+          </tr>
+          <tr>
+            <td><strong translate=""><span class="ng-scope">Timestamp</span></strong></td>
+            <td class="text-right text-muted ng-binding">{{result ? result.timestamp : ''}}</td>
+          </tr>
+          <tr data-ng-show="block.poolInfo" class="">
+            <td><strong translate=""><span class="ng-scope">Mined by</span></strong></td>
+            <td class="text-right text-muted">
+              <a href="" target="_blank" title="" class="ng-binding"></a>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Merkle Root</strong></td>
+            <td class="text-right text-muted">
+              <div class="ellipsis">
+                <span class="btn-copy" clip-copy="block.merkleroot"></span>
+                <span class="ng-binding"></span>
+              </div>
+            </td>
+          </tr>
+          <tr data-ng-show="block.previousblockhash" class="">
+            <td><strong translate=""><span class="ng-scope">Previous Block</span></strong></td>
+            <td class="text-right"><a href="block/00000000000000000e78cde4510ef53a7ee213752560ff7a88567c7869de7ff1" class="ng-binding"></a></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <table class="table">
+          <tbody>
+          <tr>
+            <td> <strong translate=""><span class="ng-scope">Difficulty</span></strong></td>
+            <td class="text-right text-muted ng-binding"></td>
+          </tr>
+          <tr>
+            <td> <strong>Bits</strong></td>
+            <td class="text-right text-muted ng-binding"></td>
+          </tr>
+          <tr>
+            <td> <strong translate=""><span class="ng-scope">Size (bytes)</span></strong></td>
+            <td class="text-right text-muted ng-binding"></td>
+          </tr>
+          <tr>
+            <td> <strong translate=""><span class="ng-scope">Version</span></strong></td>
+            <td class="text-right text-muted ng-binding"></td>
+          </tr>
+          <tr>
+            <td> <strong>Nonce</strong></td>
+            <td class="text-right text-muted ng-binding"></td>
+          </tr>
+          <tr data-ng-show="block.nextblockhash" class="">
+            <td><strong translate=""><span class="ng-scope">Next Block</span></strong></td>
+            <td class="text-right"><a href="" class="ng-binding"></a></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div data-ng-if="block.hash" data-ng-controller="transactionsController" data-ng-init="load('block')" class="ng-scope">
+      <h3 translate=""><span class="ng-scope">Transactions</span></h3>
+      <div class="block-tx ng-scope" data-ng-show="txs &amp;&amp; txs[0].txid" data-ng-repeat="tx in txs">
+  <!-- ngInclude:  --><div data-ng-include="" src="'views/transaction/tx.html'" class="ng-scope"><div class="line-bot row ng-scope" data-ng-hide="!tx">
+  <div class="col-xs-7 col-md-8">
+    <div class="ellipsis">
+      <a class="btn-expand" title="Show/Hide items details" data-ng-click="itemsExpanded = !itemsExpanded">
+        <span class="glyphicon glyphicon-plus-sign" data-ng-class="{'glyphicon-minus-sign': itemsExpanded}"></span>
+      </a>
+      <a href="" class="ng-binding">{{result ? result.tx_id : ''}}</a>
+      <span class="btn-copy" clip-copy="tx.txid"></span>
+    </div>
   </div>
-  <div class="panel panel-primary">
-    <div class="panel-heading">BlockHash</div>
-       <h3>
-         123
-       </h3>
+  <div class="col-xs-5 col-md-4 text-right text-muted">
+    <div data-ng-show="tx.blocktime &amp;&amp; !tx.firstSeenTs" class="">
+      <span translate=""><span class="ng-scope">mined</span></span>
+      {{result ? result.timestamp : ''}}
+    </div>
   </div>
 </div>
+<div class="row line-mid ng-scope">
+  <div class="col-md-5">
+    <!-- ngIf: tx.isCoinBase --><div class="row ng-scope" data-ng-if="tx.isCoinBase">
+      <!-- ngRepeat: vin in tx.vin --><div class="col-md-12 transaction-vin-vout ng-scope" data-ng-repeat="vin in tx.vin">
+        <div class="ellipsis">
+          <span translate=""><span class="ng-scope">No Inputs (Newly Generated Coins)</span></span>
+        </div>
+      </div><!-- end ngRepeat: vin in tx.vin -->
+    </div><!-- end ngIf: tx.isCoinBase -->
+    <!-- ngIf: !tx.isCoinBase -->
+  </div>
+  <div class="col-md-1 col-xs-12">
+    <div class="hidden-xs hidden-sm text-center">
+      <span class="lead glyphicon glyphicon-chevron-right text-muted"></span>
+    </div>
+    <div class="hidden-md hidden-lg text-center">
+      <span class="lead glyphicon glyphicon-chevron-down text-muted"></span>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="row">
+      <!-- ngIf: !itemsExpanded --><div data-ng-if="!itemsExpanded" data-ng-init="currentOutNoExpanded=0; sizeOutNoExpanded=5" class="ng-scope">
+        <!-- ngRepeat: vout in tx.voutSimple| startFrom:currentOutNoExpanded*sizeOutNoExpanded | limitTo:sizeOutNoExpanded --><div data-ng-repeat="vout in tx.voutSimple| startFrom:currentOutNoExpanded*sizeOutNoExpanded | limitTo:sizeOutNoExpanded" class="ng-scope">
+          <div class="transaction-vin-vout panel panel-default">
+            <div class="panel-body">
+              <div class="pull-right btc-value ng-binding" data-ng-class="{'text-success': $root.currentAddr == vout.addr}">
+                25.00829989 BTC
+                <span class="text-danger ng-scope" data-ng-show="vout.isSpent" tooltip="Output is spent" tooltip-placement="left">(S)</span>
+                <span class="text-success ng-scope ng-hide" data-ng-show="!vout.isSpent" tooltip="Output is unspent" tooltip-placement="left">(U)</span>
+              </div>
+
+              <div class="ellipsis">
+                <span data-ng-show="vout.notAddr" class="ng-binding ng-hide">17kkmDx8eSwj2JTTULb3HkJhCmexfysExz</span>
+                <!-- ngRepeat: address in vout.addr.split(',') --><span class="text-muted ng-binding ng-scope ng-hide" title="Current Bitcoin Address" data-ng-show="address == $root.currentAddr" data-ng-repeat="address in vout.addr.split(',')">17kkmDx8eSwj2JTTULb3HkJhCmexfysExz</span><!-- end ngRepeat: address in vout.addr.split(',') -->
+                <!-- ngRepeat: address in vout.addr.split(',') --><a href="address/17kkmDx8eSwj2JTTULb3HkJhCmexfysExz" data-ng-show="!vout.notAddr &amp;&amp; address != $root.currentAddr" data-ng-repeat="address in vout.addr.split(',')" class="ng-binding ng-scope">17kkmDx8eSwj2JTTULb3HkJhCmexfysExz</a><!-- end ngRepeat: address in vout.addr.split(',') -->
+              </div>
+            </div>
+          </div>
+        </div><!-- end ngRepeat: vout in tx.voutSimple| startFrom:currentOutNoExpanded*sizeOutNoExpanded | limitTo:sizeOutNoExpanded -->
+
+      </div><!-- end ngIf: !itemsExpanded -->
+
+      <!-- Full view >>> -->
+      <!-- ngIf: itemsExpanded -->
+    </div>
+  </div>
+</div>
+
+<div class="line-top row ng-scope" data-ng-hide="!tx">
+  <div class="col-xs-6 col-sm-8 col-md-8 text-right">
+    <span data-ng-show="tx.confirmations" class="txvalues       txvalues-success ng-binding">164462 <span translate=""><span class="ng-scope">Confirmations</span></span></span>
+    <span data-ng-show="!tx.confirmations" class="txvalues txvalues-danger ng-hide" translate=""><span class="ng-scope">Unconfirmed Transaction!</span></span>
+    <span class="txvalues txvalues-primary ng-binding">25.00829989 BTC</span>
+  </div>
+</div>
+  </div>
+      </div>
+
+</div>
+
+<!-- <div class="container"> -->
+<!--   <div class="row"> -->
+<!--     <div class="col-md-10"> -->
+<!--       <div class="row"> -->
+<!--         <div class="col-md-5"> -->
+<!--           <h2 class="text-left"><span translate=""><span class="ng-scope">Block</span></span> #{{result ? result.block_number : ''}}</h2> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
+
+<!--   <div class="well"> -->
+<!--     <div class="row"> -->
+<!--       <div class="col-md-2 ellipsis text-left"> -->
+<!--         <strong>BlockHash</strong> -->
+<!--       </div> -->
+<!--       <div class="col-md-6 ellipsis text-left"> -->
+<!--         {{result ? result.block_hash : ''}} -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
+<!-- </div> -->
+
+<!-- <div class="col-md-1 text-left"> -->
+  <!--   <span class="btn-copy" clip-copy="block.hash"></span> -->
+  <!-- </div> -->
