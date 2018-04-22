@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
-
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
+
+import { DataServiceModel } from './models/DataService.model';
+
 
 @Injectable()
 export class DataService {
 
-    result: any;
+    result: DataServiceModel[];
+
+    imports: [
+        Http
+    ];
 
     constructor(private _http: Http) {}
 
@@ -14,5 +20,4 @@ export class DataService {
         const transaction = this._http.get('/api/latest_transaction');
         return transaction.map(data => this.result = data.json());
     }
-
 }
