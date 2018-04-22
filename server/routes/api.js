@@ -64,7 +64,6 @@ router.get("/latest_transaction", (req, res) => {
     client
       .query(queryStr)
       .then(data => {
-        // data.rows[0].timestamp = timeConverter(data.rows[0].tx_modified_at);
         res.send(data.rows.map(timeConverter));
       })
       .then(() => client.end());
