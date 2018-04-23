@@ -1,4 +1,5 @@
-<div id="wrap">
+<img *ngIf="!result" style="display: block; margin-left: 50%; margin-top: 50%; width: 2%" src="./assets/img/loading.gif" />
+<div id="wrap" *ngIf="result">
   <div class="navbar navbar-default navbar-fixed-top ng-scope" data-ng-include="'views/includes/header.html'" role="navigation"><div class="container ng-scope">
       <div data-ng-controller="HeaderController" class="ng-scope">
         <div class="navbar-header">
