@@ -17,7 +17,8 @@ export class DataService {
     constructor(private _http: Http) {}
 
     getLatestTransaction() {
-        const transaction = this._http.get('http://localhost:3000/api/latest_transaction');
+        const domain = window.location.href.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n]+)/)[0];
+        const transaction = this._http.get(`${domain}:3000/api/latest_transaction`);
         return transaction.map(data => this.result = data.json());
     }
 }
