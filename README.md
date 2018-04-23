@@ -20,7 +20,7 @@ Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.gi
 
 ## Running end-to-end tests
 
-Run `npm e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Run `npm run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
 ## Further help
 
