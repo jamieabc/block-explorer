@@ -2,7 +2,7 @@ import { AppPage } from './app.po';
 
 describe('block-explorer App', () => {
     let page: AppPage;
-    let defaultData: {
+    const defaultData: {
         block_number: string;
         block_hash: string;
         timestamp: string;
