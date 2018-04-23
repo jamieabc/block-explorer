@@ -8,7 +8,7 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "e2e=true node server && ng e2e"
+    "e2e": "e2e=true node server"
   },
   "private": true,
   "dependencies": {
