@@ -17,7 +17,7 @@ export class DataService {
     constructor(private _http: Http) {}
 
     getLatestTransaction() {
-        const transaction = this._http.get('/api/latest_transaction');
+        const transaction = this._http.get('http://localhost:3000/api/latest_transaction');
         return transaction.map(data => this.result = data.json());
     }
 }
