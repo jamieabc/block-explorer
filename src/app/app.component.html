@@ -20,7 +20,7 @@
               <a href="https://blockexplorer.com/market" target="_self" class="ng-binding">Market</a>
             </li><li data-ng-repeat="item in menu" ui-route="" data-ng-class="{active: $uiRoute}" class="ng-scope">
               <a href="https://bitcoincash.blockexplorer.com" target="_self" class="ng-binding">Bitcoin cash</a>
-            </li><!-- end ngRepeat: item in menu --><li data-ng-repeat="item in menu" ui-route="" data-ng-class="{active: $uiRoute}" class="ng-scope">
+            </li><li data-ng-repeat="item in menu" ui-route="" data-ng-class="{active: $uiRoute}" class="ng-scope">
               <a href="https://zcash.blockexplorer.com" target="_self" class="ng-binding">Zcash</a>
             </li><li data-ng-repeat="item in menu" ui-route="/blocks" data-ng-class="{active: $uiRoute}" class="ng-scope">
               <a href="/blocks" target="" class="ng-binding">Blocks</a>
@@ -121,7 +121,6 @@
             <div class="col-md-10">
               <div class="row">
                 <div class="col-md-5">
-                  <h3 class="text-left ng-binding"><span translate=""><span class="ng-scope">Block</span></span> #{{result ? result.block_hash : ''}}</h3>
                 </div>
                 <p class="col-md-6 ellipsis text-left ng-binding">
                   <strong>Hash</strong> {{result ? result.block_hash : ''}}
@@ -143,11 +142,11 @@
           </a>
         </div>
       </div>
-      <h1 class="ng-binding">Block #{{result ? result.block_number : ''}}</h1>
+      <h1 id="block-number" class="ng-binding">Block #{{result ? result.block_number : ''}}</h1>
       <div data-ng-if="block.hash" class="ng-scope">
         <div class="well well-sm ellipsis">
           <strong>BlockHash</strong>
-          <span class="txid text-muted ng-binding">{{result ? result.block_hash : ''}}</span>
+          <span id="block-hash" class="txid text-muted ng-binding">{{result ? result.block_hash : ''}}</span>
           <span class="btn-copy" clip-copy="block.hash"></span>
         </div>
         <h2 translate=""><span class="ng-scope">Summary</span></h2>
@@ -172,7 +171,7 @@
                 </tr>
                 <tr>
                   <td><strong translate=""><span class="ng-scope">Timestamp</span></strong></td>
-                  <td class="text-right text-muted ng-binding">{{result ? result.timestamp : ''}}</td>
+                  <td id="block-timestamp" class="text-right text-muted ng-binding">{{result ? result.timestamp : ''}}</td>
                 </tr>
                 <tr data-ng-show="block.poolInfo" class="">
                   <td><strong translate=""><span class="ng-scope">Mined by</span></strong></td>
@@ -238,14 +237,14 @@
                     <a class="btn-expand" title="Show/Hide items details" data-ng-click="itemsExpanded = !itemsExpanded">
                       <span class="glyphicon glyphicon-plus-sign" data-ng-class="{'glyphicon-minus-sign': itemsExpanded}"></span>
                     </a>
-                    <a href="tx/34d9a0f1ed725538808201ea077938f20d23459355d26a58fcb6499d24b0df9a" class="ng-binding">{{result ? result.tx_id : ''}}</a>
+                    <a id="block-tx-id" class="ng-binding">{{result ? result.tx_id : ''}}</a>
                     <span class="btn-copy" clip-copy="tx.txid"></span>
                   </div>
                 </div>
                 <div class="col-xs-5 col-md-4 text-right text-muted">
                   <div data-ng-show="tx.firstSeenTs" class="ng-hide">
                     <span translate=""><span class="ng-scope">first seen at</span></span>
-                    <time class="ng-binding">undefined NaN, NaN NaN:NaN:NaN PM</time>
+                    <time class="ng-binding"></time>
                   </div>
                   <div data-ng-show="tx.blocktime &amp;&amp; !tx.firstSeenTs" class="">
                     <span translate=""><span class="ng-scope">mined</span></span>

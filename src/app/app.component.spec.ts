@@ -77,7 +77,7 @@ describe('AppComponent', () => {
         const fixture = TestBed.createComponent(AppComponent);
         fixture.detectChanges();
         const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('h1').textContent)
+        expect(compiled.querySelector('h1#block-number').textContent)
             .toContain(`#${defaultData[0].block_number}`);
     }));
 
@@ -85,11 +85,23 @@ describe('AppComponent', () => {
         const fixture = TestBed.createComponent(AppComponent);
         fixture.detectChanges();
         const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('div.well').textContent)
+        expect(compiled.querySelector('span#block-hash').textContent)
             .toContain(`${defaultData[0].block_hash}`);
     }));
 
-    xit('should render correct timestamp', async(() => {}));
+    it('should render correct timestamp', async(() => {
+        const fixture = TestBed.createComponent(AppComponent);
+        fixture.detectChanges();
+        const compiled = fixture.debugElement.nativeElement;
+        expect(compiled.querySelector('td#block-timestamp').textContent)
+            .toContain(`${defaultData[0].timestamp}`);
+    }));
 
-    xit('should render correct latest transaction id', async(() => {}));
+    it('should render correct latest transaction id', async(() => {
+        const fixture = TestBed.createComponent(AppComponent);
+        fixture.detectChanges();
+        const compiled = fixture.debugElement.nativeElement;
+        expect(compiled.querySelector('a#block-tx-id').textContent)
+            .toContain(`${defaultData[0].tx_id}`);
+    }));
 });
