@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Angular DIST output folder
 app.use(express.static(path.join(__dirname, "dist")));
 
-// API location
+// API location to get postgreSQL data
 app.use("/api", cors(), api);
 
 // Send all other requests to the Angular app
