@@ -40,4 +40,4 @@ if (process.env.e2e) {
   });
 }
 
-server.listen(port, () => console.log(`Running on localhost:${port}`));
+server.listen(port, () => console.log(`Running API server on localhost:${port}`));
