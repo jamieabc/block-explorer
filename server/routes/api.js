@@ -20,14 +20,11 @@ const queryBlockNumberStr = blockNumber =>
 const queryAssetIdStr = assetId =>
   `SELECT * FROM blockchain.asset INNER JOIN blockchain.transaction ON transaction.tx_asset_id = asset.asset_id INNER JOIN blockchain.block ON block.block_number = asset.asset_block_number WHERE asset.asset_id = '${assetId}' ORDER BY tx_modified_at LIMIT 1;`;
 
-const queryLatestBlockStr =
-  "SELECT * FROM blockchain.block INNER JOIN blockchain.asset ON block.block_number = asset.asset_block_number INNER JOIN blockchain.transaction ON block.block_number = transaction.tx_block_number ORDER BY block_created_at DESC LIMIT 1;";
-
 const queryTransactionsInLatestBlockStr =
-  "SELECT * FROM transaction LEFT OUTER JOIN asset ON transaction.tx_asset_id = asset.asset_id LEFT OUTER JOIN block ON transaction.tx_block_number = block.block_number  WHERE transaction.tx_block_number = (SELECT block_number FROM block ORDER BY block_created_at DESC LIMIT 1);";
+  "SELECT * FROM blockchain.transaction LEFT OUTER JOIN blockchain.asset ON transaction.tx_asset_id = asset.asset_id LEFT OUTER JOIN blockchain.block ON transaction.tx_block_number = block.block_number  WHERE transaction.tx_block_number = (SELECT block_number FROM blockchain.block ORDER BY block.block_created_at DESC LIMIT 1);";
 
 const queryTransactionsInBlockStr = blockNumber =>
-  `SELECT * FROM transaction LEFT OUTER JOIN asset ON transaction.tx_asset_id = asset.asset_id LEFT OUTER JOIN block ON transaction.tx_block_number = block.block_number  WHERE transaction.tx_block_number = '${blockNumber}';`;
+  `SELECT * FROM blockchain.transaction LEFT OUTER JOIN blockchain.asset ON transaction.tx_asset_id = asset.asset_id LEFT OUTER JOIN blockchain.block ON transaction.tx_block_number = block.block_number  WHERE transaction.tx_block_number = '${blockNumber}';`;
 
 // error response
 const sendError = (err, res) => {
@@ -89,16 +86,13 @@ router.get("/latest_transaction", (req, res) => {
   connectDB(queryFactory, queryLatestTransactionStr, res);
 });
 
-router.get("/latest_block", (req, res) => {
-  connectDB(queryFactory, queryLatestBlockStr, res);
+router.get("/block_transactions/latest", (req, res) => {
+  connectDB(queryFactory, queryTransactionsInLatestBlockStr, res);
 });
 
 router.get("/block_transactions/:blockNumber", (req, res) => {
-  connectDB(queryFactory, queryTransactionsInBlockStr, res);
-});
-
-router.get("block_transactions/", (req, res) => {
-  connectDB(queryFactory, queryTransactionsInLatestBlockStr, res);
+  const { blockNumber } = req.params;
+  connectDB(queryFactory, queryTransactionsInBlockStr(blockNumber), res);
 });
 
 router.get("/block/:blockNumber", (req, res) => {
