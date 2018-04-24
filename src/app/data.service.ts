@@ -26,6 +26,10 @@ export class DataService {
             transaction =
                 this._http
                 .get(`http://${parsedUrl.hostname}:3000/api/${category}/${resourceId}`);
+        } else if (category === 'block_transactions') {
+            transaction =
+                this._http
+                .get(`http://${parsedUrl.hostname}:3000/api/block_transactions/${resourceId === 'latest' ? 'latest' : resourceId}`);
         } else {
             transaction =
                 this._http
