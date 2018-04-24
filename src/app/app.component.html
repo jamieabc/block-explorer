@@ -1,7 +1,7 @@
 <img *ngIf="!result" style="display: block; margin-left: 50%; margin-top: 50%; width: 2%" src="./assets/img/loading.gif" />
 <div id="wrap" *ngIf="result">
   <section class="container ng-scope" data-ng-view="">
-    <section data-ng-controller="BlocksController" data-ng-init="findOne()" class="ng-scope">
+    <section class="ng-scope">
       <h1 id="block-number" class="ng-binding">Block #{{result ? result.block_number : ''}}</h1>
       <div data-ng-if="block.hash" class="ng-scope">
         <div class="well well-sm ellipsis">
@@ -15,36 +15,38 @@
             <table class="table" style="table-layout: fixed">
               <tbody>
                 <tr>
-                  <td><strong translate=""><span class="ng-scope">Number Of Transactions</span></strong></td>
-                  <td class="text-right text-muted ng-binding"></td>
+                  <td><strong translate=""><span class="ng-scope">Block Offset</span></strong></td>
+                  <td class="text-right text-muted ng-binding">{{result ? result.block_offset : ''}}</td>
                 </tr>
                 <tr>
-                  <td><strong translate=""><span class="ng-scope">Height</span></strong></td>
-                  <td class="text-right text-muted ng-binding">
-                    <span data-ng-show="block.isMainChain" class="text-success"></span>
-                    <span data-ng-show="!block.isMainChain" class="text-danger ng-hide"> <span class="glyphicon glyphicon-warning-sign"></span> (Orphaned)</span>
+                  <td><strong translate=""><span class="ng-scope">Signature</span></strong></td>
+                  <td class="text-right text-muted">
+                    <div class="ellipsis">
+                      <span class="ng-binding">{{result ? result.tx_signature : ''}}</span>
+                    </div>
                   </td>
                 </tr>
                 <tr>
-                  <td><strong translate=""><span class="ng-scope">Block Reward</span></strong></td>
-                  <td class="text-right text-muted ng-binding">BTC</td>
+                  <td><strong translate=""><span class="ng-scope">Status</span></strong></td>
+                  <td class="text-right text-muted ng-binding">{{result ? result.tx_status : ''}}</td>
                 </tr>
                 <tr>
                   <td><strong translate=""><span class="ng-scope">Timestamp</span></strong></td>
                   <td id="block-timestamp" class="text-right text-muted ng-binding">{{result ? result.timestamp : ''}}</td>
                 </tr>
                 <tr data-ng-show="block.poolInfo" class="">
-                  <td><strong translate=""><span class="ng-scope">Mined by</span></strong></td>
+                  <td><strong translate=""><span class="ng-scope">Bitmark ID</span></strong></td>
                   <td class="text-right text-muted">
-                    <a href="" target="_blank" title="" class="ng-binding"></a>
+                    <div class="ellipsis">
+                      <span class="ng-binding">{{result ? result.tx_bitmark_id : ''}}</span>
+                    </div>
                   </td>
                 </tr>
                 <tr>
-                  <td><strong>Merkle Root</strong></td>
+                  <td><strong>Registrant</strong></td>
                   <td class="text-right text-muted">
                     <div class="ellipsis">
-                      <span class="btn-copy" clip-copy="block.merkleroot"></span>
-                      <span class="ng-binding"></span>
+                      <span class="ng-binding">{{result ? result.asset_registrant : ''}}</span>
                     </div>
                   </td>
                 </tr>
@@ -59,24 +61,32 @@
             <table class="table">
               <tbody>
                 <tr>
-                  <td> <strong translate=""><span class="ng-scope">Difficulty</span></strong></td>
-                  <td class="text-right text-muted ng-binding"></td>
+                  <td> <strong translate=""><span class="ng-scope">Fingerprint</span></strong></td>
+                  <td class="text-right text-muted ng-binding">{{result ? result.asset_fingerprint : ''}}</td>
                 </tr>
                 <tr>
-                  <td> <strong>Bits</strong></td>
-                  <td class="text-right text-muted ng-binding"></td>
+                  <td> <strong>Description</strong></td>
+                  <td class="text-right text-muted ng-binding">{{(result && result.asset_metadata) ? result.asset_metadata.description : ''}}</td>
                 </tr>
                 <tr>
-                  <td> <strong translate=""><span class="ng-scope">Size (bytes)</span></strong></td>
-                  <td class="text-right text-muted ng-binding"></td>
+                  <td> <strong translate=""><span class="ng-scope">Sequence</span></strong></td>
+                  <td class="text-right text-muted ng-binding">{{result ? result.asset_sequence : ''}}</td>
                 </tr>
                 <tr>
-                  <td> <strong translate=""><span class="ng-scope">Version</span></strong></td>
-                  <td class="text-right text-muted ng-binding"></td>
+                  <td> <strong translate=""><span class="ng-scope">Name</span></strong></td>
+                  <td class="text-right text-muted">
+                    <div class="ellipsis">
+                      <span class="ng-binding">{{result ? result.asset_name : ''}}</span>
+                    </div>
+                  </td>
                 </tr>
                 <tr>
-                  <td> <strong>Nonce</strong></td>
-                  <td class="text-right text-muted ng-binding"></td>
+                  <td> <strong>Sequence</strong></td>
+                  <td class="text-right text-muted">
+                    <div class="ellipsis">
+                      <span class="ng-binding">{{result ? result.asset_sequence : ''}}</span>
+                    </div>
+                  </td>
                 </tr>
                 <tr data-ng-show="block.nextblockhash" class="">
                   <td><strong translate=""><span class="ng-scope">Next Block</span></strong></td>
