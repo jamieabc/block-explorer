@@ -4,12 +4,12 @@ import { DataServiceModel } from '../src/app/models/DataService.model';
 describe('block-explorer App', () => {
     let page: AppPage;
     const defaultData: DataServiceModel = {
-        block_number: 2,
-        next_block_number: 3,
-        block_hash: '00a9ff09086a66ad85b082e9f8f5b92d1c103ffedc6b61934a93a367bd4829b6',
-        timestamp: 'Apr 10, 2018 03:36:53 PM',
-        tx_id: 'd8b920f7d2925e74d2038d817118de3701bf980ce8f5e2e79d041bb283a6be59',
-        asset_id: "069e77701064a7c2f2ca83255f63b1398f39eb085596e46ac428c3f6d26a7e025b385bb9015c07f381a115190e7000c3bf30f83b097880316e5e84b6976f905f"
+        block_number: 6758,
+        next_block_number: 6759,
+        block_hash: '00330d68cbaf19cd50bc5c14503a285e846dd460d9bad97519f04919fc122e1f',
+        timestamp: 'Apr 19, 2018 11:21:57 AM',
+        tx_id: '478e808284c5bf65992ea059e3057f9c30823371623ecfedb06e326715a919f1',
+        asset_id: "762667b3ab53d202d87e3ae3a57fc48cf56b722e429eca664fbcfe933b9a1cbc8e95ca5d06861e20878aed9c8b63c3da8ea569bfcc10327804358a3ba21b8b33"
     };
 
     beforeEach(() => {
