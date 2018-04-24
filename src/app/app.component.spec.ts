@@ -44,7 +44,9 @@ describe('AppComponent', () => {
         asset_block_number: "2",
         asset_block_offset: "1",
         asset_expires_at: null,
-        block_number: "2",
+        block_number: 2,
+        next_block_number: 3,
+        prev_block_number: 1,
         block_hash: "00a9ff09086a66ad85b082e9f8f5b92d1c103ffedc6b61934a93a367bd4829b6",
         block_created_at: "2016-10-28T09:58:54.000Z",
         timestamp: "Apr 10, 2018 03:36:53 PM"
@@ -107,8 +109,10 @@ describe('AppComponent', () => {
             .toContain(`${defaultData[0].asset_signature}`);
 
         // asset id
-        expect(compiled.querySelector('#asset-id').textContent)
+        const assetId = compiled.querySelector('#asset-id');
+        expect(assetId.textContent)
             .toContain(`${defaultData[0].asset_id}`);
+        expect(assetId.tagName).toEqual('A');
 
         // bitmark id
         expect(compiled.querySelector('#tx-bitmark-id').textContent)
@@ -125,5 +129,17 @@ describe('AppComponent', () => {
         // status
         expect(compiled.querySelector('#asset-status').textContent)
             .toContain(`${defaultData[0].asset_status}`);
+
+        // next block number
+        const nextBlockNumber = compiled.querySelector('#next-block-number');
+        expect(nextBlockNumber.textContent)
+            .toContain(`${defaultData[0].next_block_number}`);
+        expect(nextBlockNumber.tagName).toEqual('A');
+
+        // prev block number
+        const prevBlockNumber = compiled.querySelector('#prev-block-number');
+        expect(prevBlockNumber.textContent)
+            .toContain(`${defaultData[0].prev_block_number}`);
+        expect(prevBlockNumber.tagName).toEqual('A');
     }));
 });

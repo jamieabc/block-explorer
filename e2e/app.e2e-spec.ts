@@ -24,5 +24,5 @@ describe('block-explorer App', () => {
         expect(page.getBlockHashText()).toEqual(defaultData.block_hash);
         expect(page.getBlockTimestampText()).toEqual(defaultData.timestamp);
         expect(page.getBlockTxIdText()).toEqual(defaultData.tx_id);
-  });
+    });
 });
