@@ -77,7 +77,7 @@ describe('AppComponent', () => {
         const fixture = TestBed.createComponent(AppComponent);
         fixture.detectChanges();
         const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('h1#block-number').textContent)
+        expect(compiled.querySelector('#block-number').textContent)
             .toContain(`#${defaultData[0].block_number}`);
     }));
 
@@ -85,7 +85,7 @@ describe('AppComponent', () => {
         const fixture = TestBed.createComponent(AppComponent);
         fixture.detectChanges();
         const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('span#block-hash').textContent)
+        expect(compiled.querySelector('#block-hash').textContent)
             .toContain(`${defaultData[0].block_hash}`);
     }));
 
@@ -93,7 +93,7 @@ describe('AppComponent', () => {
         const fixture = TestBed.createComponent(AppComponent);
         fixture.detectChanges();
         const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('td#block-timestamp').textContent)
+        expect(compiled.querySelector('#tx-timestamp').textContent)
             .toContain(`${defaultData[0].timestamp}`);
     }));
 
@@ -101,7 +101,7 @@ describe('AppComponent', () => {
         const fixture = TestBed.createComponent(AppComponent);
         fixture.detectChanges();
         const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('a#block-tx-id').textContent)
+        expect(compiled.querySelector('#block-tx-id').textContent)
             .toContain(`${defaultData[0].tx_id}`);
     }));
 });

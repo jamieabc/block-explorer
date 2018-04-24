@@ -16,29 +16,33 @@
               <tbody>
                 <tr>
                   <td><strong translate=""><span class="ng-scope">Block Offset</span></strong></td>
-                  <td class="text-right text-muted ng-binding">{{result ? result.tx_block_offset : ''}}</td>
+                  <td id="block-offset" class="text-right text-muted ng-binding">{{result ? result.tx_block_offset : ''}}</td>
                 </tr>
                 <tr>
                   <td><strong translate=""><span class="ng-scope">Signature</span></strong></td>
                   <td class="text-right text-muted">
                     <div class="ellipsis">
-                      <span class="ng-binding">{{result ? result.tx_signature : ''}}</span>
+                      <span id="asset-signature" class="ng-binding">{{result ? result.tx_signature : ''}}</span>
                     </div>
                   </td>
                 </tr>
                 <tr>
-                  <td><strong translate=""><span class="ng-scope">Status</span></strong></td>
-                  <td class="text-right text-muted ng-binding">{{result ? result.tx_status : ''}}</td>
+                  <td><strong translate=""><span class="ng-scope">Asset ID</span></strong></td>
+                  <td class="text-right text-muted">
+                    <div class="ellipsis">
+                      <span id="asset-id" class="ng-binding">{{result ? result.asset_id : ''}}</span>
+                    </div>
+                  </td>
                 </tr>
                 <tr>
                   <td><strong translate=""><span class="ng-scope">Timestamp</span></strong></td>
-                  <td id="block-timestamp" class="text-right text-muted ng-binding">{{result ? result.timestamp : ''}}</td>
+                  <td id="tx-timestamp" class="text-right text-muted ng-binding">{{result ? result.timestamp : ''}}</td>
                 </tr>
                 <tr data-ng-show="block.poolInfo" class="">
                   <td><strong translate=""><span class="ng-scope">Bitmark ID</span></strong></td>
                   <td class="text-right text-muted">
                     <div class="ellipsis">
-                      <span class="ng-binding">{{result ? result.tx_bitmark_id : ''}}</span>
+                      <span id="tx-bitmark-id" class="ng-binding">{{result ? result.tx_bitmark_id : ''}}</span>
                     </div>
                   </td>
                 </tr>
@@ -46,7 +50,7 @@
                   <td><strong>Registrant</strong></td>
                   <td class="text-right text-muted">
                     <div class="ellipsis">
-                      <span class="ng-binding">{{result ? result.asset_registrant : ''}}</span>
+                      <span id="asset-registrant" class="ng-binding">{{result ? result.asset_registrant : ''}}</span>
                     </div>
                   </td>
                 </tr>
@@ -62,29 +66,29 @@
               <tbody>
                 <tr>
                   <td> <strong translate=""><span class="ng-scope">Fingerprint</span></strong></td>
-                  <td class="text-right text-muted ng-binding">{{result ? result.asset_fingerprint : ''}}</td>
+                  <td id="asset-fingerprint" class="text-right text-muted ng-binding">{{result ? result.asset_fingerprint : ''}}</td>
                 </tr>
                 <tr>
                   <td> <strong>Description</strong></td>
-                  <td class="text-right text-muted ng-binding">{{(result && result.asset_metadata) ? result.asset_metadata.description : ''}}</td>
+                  <td id="asset-description" class="text-right text-muted ng-binding">{{(result && result.asset_metadata) ? result.asset_metadata.description : ''}}</td>
                 </tr>
                 <tr>
                   <td> <strong translate=""><span class="ng-scope">Sequence</span></strong></td>
-                  <td class="text-right text-muted ng-binding">{{result ? result.asset_sequence : ''}}</td>
+                  <td id="asset-sequence" class="text-right text-muted ng-binding">{{result ? result.asset_sequence : ''}}</td>
                 </tr>
                 <tr>
                   <td> <strong translate=""><span class="ng-scope">Name</span></strong></td>
                   <td class="text-right text-muted">
                     <div class="ellipsis">
-                      <span class="ng-binding">{{result ? result.asset_name : ''}}</span>
+                      <span id="asset-name" class="ng-binding">{{result ? result.asset_name : ''}}</span>
                     </div>
                   </td>
                 </tr>
                 <tr>
-                  <td> <strong>Sequence</strong></td>
+                  <td> <strong>Status</strong></td>
                   <td class="text-right text-muted">
                     <div class="ellipsis">
-                      <span class="ng-binding">{{result ? result.asset_sequence : ''}}</span>
+                      <span id="asset-status" class="ng-binding">{{result ? result.asset_sequence : ''}}</span>
                     </div>
                   </td>
                 </tr>
