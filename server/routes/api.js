@@ -56,7 +56,7 @@ const queryFactory = (client, queryStr, res) =>
 // convert date to format of  May 2, 2015 10:49:19 AM
 const converter = obj => {
   const [week, month, day, year, time] = new Date(obj.tx_modified_at).toString().split(" ");
-  const { block_number } = obj;
+  const block_number = parseInt(obj.block_number, 10);
   let [hour, minute, second] = time.split(":");
   hour = parseInt(hour, 10);
 
@@ -70,7 +70,7 @@ const converter = obj => {
   }
 
   obj.timestamp = `${month} ${day}, ${year} ${hour}:${minute}:${second} ${am ? "AM" : "PM"}`;
-  obj.block_number = parseInt(block_number, 10);
+  obj.block_number = block_number;
   obj.next_block_number = block_number + 1;
   obj.prev_block_number = block_number === 2 ? 2 : block_number - 1;
   return obj;
@@ -85,7 +85,7 @@ router.get("/block/:blockNumber", (req, res) => {
   connectDB(queryFactory, queryBlockNumberStr(blockNumber), res);
 });
 
-router.get("/block/:assetId", (req, res) => {
+router.get("/asset/:assetId", (req, res) => {
   const { assetId = 2 } = req.params;
   connectDB(queryFactory, queryAssetIdStr(assetId), res);
 });
