@@ -15,10 +15,10 @@ const queryLatestTransactionStr =
   "SELECT * FROM blockchain.transaction INNER JOIN blockchain.asset ON transaction.tx_asset_id = asset.asset_id INNER JOIN blockchain.block ON block.block_number = asset.asset_block_number ORDER BY tx_modified_at LIMIT 1;";
 
 const queryBlockNumberStr = blockNumber =>
-  `SELECT * FROM blockchain.transaction INNER JOIN blockchain.asset ON transaction.tx_asset_id = asset.asset_id INNER JOIN blockchain.block ON block.block_number = asset.asset_block_number WHERE transaction.tx_block_number = '${blockNumber}' ORDER BY tx_modified_at LIMIT 1;`;
+  `SELECT * FROM blockchain.block LEFT OUTER JOIN blockchain.asset ON block.block_number = asset.asset_block_number LEFT OUTER JOIN blockchain.transaction ON block.block_number = transaction.tx_block_number WHERE block.block_number = '${blockNumber}' ORDER BY transaction.tx_modified_at LIMIT 1;`;
 
 const queryAssetIdStr = assetId =>
-  `SELECT * FROM blockchain.transaction INNER JOIN blockchain.asset ON transaction.tx_asset_id = asset.asset_id INNER JOIN blockchain.block ON block.block_number = asset.asset_block_number WHERE transaction.tx_asset_id = '${assetId}' ORDER BY tx_modified_at LIMIT 1;`;
+  `SELECT * FROM blockchain.asset INNER JOIN blockchain.transaction ON transaction.tx_asset_id = asset.asset_id INNER JOIN blockchain.block ON block.block_number = asset.asset_block_number WHERE asset.asset_id = '${assetId}' ORDER BY tx_modified_at LIMIT 1;`;
 
 // error response
 const sendError = (err, res) => {
@@ -49,13 +49,14 @@ const queryFactory = (client, queryStr, res) =>
   client
     .query(queryStr)
     .then(data => {
-      res.send(data.rows.map(timeConverter));
+      res.send(data.rows.map(converter));
     })
     .then(() => client.end());
 
 // convert date to format of  May 2, 2015 10:49:19 AM
-const timeConverter = obj => {
+const converter = obj => {
   const [week, month, day, year, time] = new Date(obj.tx_modified_at).toString().split(" ");
+  const { block_number } = obj;
   let [hour, minute, second] = time.split(":");
   hour = parseInt(hour, 10);
 
@@ -69,6 +70,9 @@ const timeConverter = obj => {
   }
 
   obj.timestamp = `${month} ${day}, ${year} ${hour}:${minute}:${second} ${am ? "AM" : "PM"}`;
+  obj.block_number = parseInt(block_number, 10);
+  obj.next_block_number = block_number + 1;
+  obj.prev_block_number = block_number === 2 ? 2 : block_number - 1;
   return obj;
 };
 
@@ -81,7 +85,7 @@ router.get("/block/:blockNumber", (req, res) => {
   connectDB(queryFactory, queryBlockNumberStr(blockNumber), res);
 });
 
-router.get("/asset/:assetId", (req, res) => {
+router.get("/block/:assetId", (req, res) => {
   const { assetId = 2 } = req.params;
   connectDB(queryFactory, queryAssetIdStr(assetId), res);
 });

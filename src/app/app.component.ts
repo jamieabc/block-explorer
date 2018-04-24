@@ -14,8 +14,12 @@ export class AppComponent {
     result: DataServiceModel;
 
     constructor(private _dataService: DataService) {
+        const parsedUrl = new URL(window.location.href);
+        const { pathname } = parsedUrl;
+        const [ category, resourceId ] = pathname.split('/');
+
         this._dataService
-            .getLatestTransaction()
+            .getData(parsedUrl)
             .subscribe(res => this.result = res[0]);
     }
 }

@@ -15,14 +15,18 @@
             <table class="table" style="table-layout: fixed">
               <tbody>
                 <tr>
-                  <td><strong translate=""><span class="ng-scope">Block Offset</span></strong></td>
-                  <td id="block-offset" class="text-right text-muted ng-binding">{{result ? result.tx_block_offset : ''}}</td>
-                </tr>
-                <tr>
-                  <td><strong translate=""><span class="ng-scope">Signature</span></strong></td>
+                  <td><strong translate=""><span class="ng-scope">Fingerprint</span></strong></td>
                   <td class="text-right text-muted">
                     <div class="ellipsis">
-                      <span id="asset-signature" class="ng-binding">{{result ? result.tx_signature : ''}}</span>
+                      <span id="asset-fingerprint"class="ng-binding">{{result ? result.asset_fingerprint : ''}}</span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong translate=""><span class="ng-scope">Asset Signature</span></strong></td>
+                  <td class="text-right text-muted">
+                    <div class="ellipsis">
+                      <span id="asset-signature" class="ng-binding">{{result ? result.asset_signature : ''}}</span>
                     </div>
                   </td>
                 </tr>
@@ -56,7 +60,7 @@
                 </tr>
                 <tr data-ng-show="block.previousblockhash" class="">
                   <td><strong translate=""><span class="ng-scope">Previous Block</span></strong></td>
-                  <td class="text-right"><a href="block/00000000000000000e78cde4510ef53a7ee213752560ff7a88567c7869de7ff1" class="ng-binding"></a></td>
+                  <td class="text-right"><a href="block/{{result ? result.prev_block_number : ''}}" class="ng-binding">{{result ? result.prev_block_number : ''}}</a></td>
                 </tr>
               </tbody>
             </table>
@@ -65,12 +69,16 @@
             <table class="table">
               <tbody>
                 <tr>
-                  <td> <strong translate=""><span class="ng-scope">Fingerprint</span></strong></td>
-                  <td id="asset-fingerprint" class="text-right text-muted ng-binding">{{result ? result.asset_fingerprint : ''}}</td>
+                  <td> <strong translate=""><span class="ng-scope">Block Offset</span></strong></td>
+                  <td id="block-offset" class="text-right text-muted ng-binding">{{result ? result.tx_block_offset : ''}}</td>
                 </tr>
                 <tr>
                   <td> <strong>Description</strong></td>
-                  <td id="asset-description" class="text-right text-muted ng-binding">{{(result && result.asset_metadata) ? result.asset_metadata.description : ''}}</td>
+                  <td class="text-right text-muted">
+                    <div class="ellipsis">
+                      <span id="asset-description" class="ng-binding">{{(result && result.asset_metadata) ? result.asset_metadata.description : ''}}</span>
+                    </div>
+                  </td>
                 </tr>
                 <tr>
                   <td> <strong translate=""><span class="ng-scope">Sequence</span></strong></td>
@@ -88,13 +96,13 @@
                   <td> <strong>Status</strong></td>
                   <td class="text-right text-muted">
                     <div class="ellipsis">
-                      <span id="asset-status" class="ng-binding">{{result ? result.asset_sequence : ''}}</span>
+                      <span id="asset-status" class="ng-binding">{{result ? result.asset_status : ''}}</span>
                     </div>
                   </td>
                 </tr>
-                <tr data-ng-show="block.nextblockhash" class="">
+                <tr class="ng-scope">
                   <td><strong translate=""><span class="ng-scope">Next Block</span></strong></td>
-                  <td class="text-right"><a href="block/0000000000000000167bce693f9b4efc27952492b7aba31f2aeead009d4669b4" class="ng-binding"></a></td>
+                  <td class="text-right"><a href="block/{{result.next_block_number}}" class="ng-binding">{{result ? result.next_block_number : ''}}</a></td>
                 </tr>
               </tbody>
             </table>

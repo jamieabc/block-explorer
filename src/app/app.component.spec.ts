@@ -65,7 +65,7 @@ describe('AppComponent', () => {
 
         // mock http response from DataService
         const dataService: DataService = TestBed.get(DataService);
-        spyOn(dataService, 'getLatestTransaction').and.returnValue(of(defaultData));
+        spyOn(dataService, 'getData').and.returnValue(of(defaultData));
     }));
 
     it('should create the app', async(() => {
@@ -81,27 +81,49 @@ describe('AppComponent', () => {
             .toContain(`#${defaultData[0].block_number}`);
     }));
 
-    it('should render correct block hash', async(() => {
+    it('should render correct data', async(() => {
         const fixture = TestBed.createComponent(AppComponent);
         fixture.detectChanges();
         const compiled = fixture.debugElement.nativeElement;
+
+        // block hash
         expect(compiled.querySelector('#block-hash').textContent)
             .toContain(`${defaultData[0].block_hash}`);
-    }));
 
-    it('should render correct timestamp', async(() => {
-        const fixture = TestBed.createComponent(AppComponent);
-        fixture.detectChanges();
-        const compiled = fixture.debugElement.nativeElement;
+        // tx modified timestamp
         expect(compiled.querySelector('#tx-timestamp').textContent)
             .toContain(`${defaultData[0].timestamp}`);
-    }));
 
-    it('should render correct latest transaction id', async(() => {
-        const fixture = TestBed.createComponent(AppComponent);
-        fixture.detectChanges();
-        const compiled = fixture.debugElement.nativeElement;
+        // tx id
         expect(compiled.querySelector('#block-tx-id').textContent)
             .toContain(`${defaultData[0].tx_id}`);
+
+        // block offset
+        expect(compiled.querySelector('#block-offset').textContent)
+            .toContain(`${defaultData[0].tx_block_offset}`);
+
+        // signature
+        expect(compiled.querySelector('#asset-signature').textContent)
+            .toContain(`${defaultData[0].asset_signature}`);
+
+        // asset id
+        expect(compiled.querySelector('#asset-id').textContent)
+            .toContain(`${defaultData[0].asset_id}`);
+
+        // bitmark id
+        expect(compiled.querySelector('#tx-bitmark-id').textContent)
+            .toContain(`${defaultData[0].tx_bitmark_id}`);
+
+        // sequence
+        expect(compiled.querySelector('#asset-sequence').textContent)
+            .toContain(`${defaultData[0].asset_sequence}`);
+
+        // name
+        expect(compiled.querySelector('#asset-name').textContent)
+            .toContain(`${defaultData[0].asset_name}`);
+
+        // status
+        expect(compiled.querySelector('#asset-status').textContent)
+            .toContain(`${defaultData[0].asset_status}`);
     }));
 });

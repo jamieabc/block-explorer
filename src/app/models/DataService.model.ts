@@ -28,7 +28,9 @@ export interface DataServiceModel {
     asset_block_number: string;
     asset_block_offset: string;
     asset_expires_at: string;
-    block_number: string;
+    block_number: number;
+    next_block_number: number;
+    prev_block_number: number;
     block_hash: string;
     block_created_at: string;
     timestamp: string;
