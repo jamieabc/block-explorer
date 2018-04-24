@@ -11,8 +11,14 @@ const db = {
 };
 
 // specific query to retrieve latest transaction
-const queryStr =
+const queryLatestTransactionStr =
   "SELECT * FROM blockchain.transaction INNER JOIN blockchain.asset ON transaction.tx_asset_id = asset.asset_id INNER JOIN blockchain.block ON block.block_number = asset.asset_block_number ORDER BY tx_modified_at LIMIT 1;";
+
+const queryBlockNumberStr = blockNumber =>
+  `SELECT * FROM blockchain.transaction INNER JOIN blockchain.asset ON transaction.tx_asset_id = asset.asset_id INNER JOIN blockchain.block ON block.block_number = asset.asset_block_number WHERE transaction.tx_block_number = '${blockNumber}' ORDER BY tx_modified_at LIMIT 1;`;
+
+const queryAssetIdStr = assetId =>
+  `SELECT * FROM blockchain.transaction INNER JOIN blockchain.asset ON transaction.tx_asset_id = asset.asset_id INNER JOIN blockchain.block ON block.block_number = asset.asset_block_number WHERE transaction.tx_asset_id = '${assetId}' ORDER BY tx_modified_at LIMIT 1;`;
 
 // error response
 const sendError = (err, res) => {
@@ -25,7 +31,7 @@ const sendError = (err, res) => {
 };
 
 // connect to postgres server
-const connect = query => {
+const connectDB = (query, queryStr, res) => {
   const client = new Client(db);
 
   client.connect(err => {
@@ -33,10 +39,19 @@ const connect = query => {
       sendError(err, res);
       console.log("connection error", err.stack);
     } else {
-      query(client);
+      query(client, queryStr, res);
     }
   });
 };
+
+// generate query
+const queryFactory = (client, queryStr, res) =>
+  client
+    .query(queryStr)
+    .then(data => {
+      res.send(data.rows.map(timeConverter));
+    })
+    .then(() => client.end());
 
 // convert date to format of  May 2, 2015 10:49:19 AM
 const timeConverter = obj => {
@@ -58,14 +73,17 @@ const timeConverter = obj => {
 };
 
 router.get("/latest_transaction", (req, res) => {
-  const query = client =>
-    client
-      .query(queryStr)
-      .then(data => {
-        res.send(data.rows.map(timeConverter));
-      })
-      .then(() => client.end());
-  connect(query);
+  connectDB(queryFactory, queryLatestTransactionStr, res);
+});
+
+router.get("/block/:blockNumber", (req, res) => {
+  const { blockNumber = 2 } = req.params;
+  connectDB(queryFactory, queryBlockNumberStr(blockNumber), res);
+});
+
+router.get("/asset/:assetId", (req, res) => {
+  const { assetId = 2 } = req.params;
+  connectDB(queryFactory, queryAssetIdStr(assetId), res);
 });
 
 module.exports = router;
