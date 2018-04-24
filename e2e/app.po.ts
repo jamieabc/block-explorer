@@ -6,19 +6,14 @@ export class AppPage {
         return element(by.id('block-number')).getText();
     }
 
-    // get transaction hash
-    getBlockHashText() {
-        return element(by.id('block-hash')).getText();
+    // get next block number
+    getNextBlockNumberText() {
+        return element(by.id('next-block-number')).getText();
     }
 
-    // get transaction timestamp
-    getBlockTimestampText() {
-        return element(by.id('block-timestamp')).getText();
-    }
-
-    // get transaction tx_id
-    getBlockTxIdText() {
-        return element(by.id('block-tx-id')).getText();
+    // get URL
+    getUrl() {
+        return browser.getCurrentUrl();
     }
 
     // wait until get data from postgresql
