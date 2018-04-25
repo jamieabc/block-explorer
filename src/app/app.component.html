@@ -42,11 +42,11 @@
                   <td><strong translate=""><span class="ng-scope">Timestamp</span></strong></td>
                   <td id="tx-timestamp" class="text-right text-muted ng-binding">{{result.data[0] ? result.data[0].timestamp : ''}}</td>
                 </tr>
-                <tr data-ng-show="block.poolInfo" class="">
-                  <td><strong translate=""><span class="ng-scope">Bitmark ID</span></strong></td>
+                <tr class="">
+                  <td><strong translate=""><span class="ng-scope">Description</span></strong></td>
                   <td class="text-right text-muted">
                     <div class="ellipsis">
-                      <span id="tx-bitmark-id" class="ng-binding">{{result.data[0] ? result.data[0].tx_bitmark_id : ''}}</span>
+                      <span id="tx-bitmark-id" class="ng-binding">{{result.data[0].asset_metadata ? result.data[0].asset_metadata.description : ''}}</span>
                     </div>
                   </td>
                 </tr>
@@ -71,14 +71,6 @@
                 <tr>
                   <td> <strong translate=""><span class="ng-scope">Block Offset</span></strong></td>
                   <td id="block-offset" class="text-right text-muted ng-binding">{{result.data[0] ? result.data[0].tx_block_offset : ''}}</td>
-                </tr>
-                <tr>
-                  <td> <strong>Description</strong></td>
-                  <td class="text-right text-muted">
-                    <div class="ellipsis">
-                      <span id="asset-description" class="ng-binding">{{(result.data[0] && result.data[0].asset_metadata) ? result.data[0].asset_metadata.description : ''}}</span>
-                    </div>
-                  </td>
                 </tr>
                 <tr>
                   <td> <strong translate=""><span class="ng-scope">Sequence</span></strong></td>
@@ -109,9 +101,9 @@
           </div>
         </div>
       </div>
-      <div data-ng-if="block.hash" data-ng-controller="transactionsController" data-ng-init="load('block')" class="ng-scope">
+      <div data-ng-controller="transactionsController" data-ng-init="load('block')" class="ng-scope">
         <h3 translate=""><span class="ng-scope">Transactions</span></h3>
-        <div class="ng-scope" *ngFor="let r of result.data"><div class="alert alert-warning ng-scope ng-hide" translate=""><span class="ng-scope">There are no transactions involving this address.</span></div>
+        <div class="ng-scope" *ngFor="let r of result.data; let idx = index;"><div class="alert alert-warning ng-scope ng-hide" translate=""><span class="ng-scope">There are no transactions involving this address.</span></div>
           <div class="block-tx ng-scope">
             <div class="ng-scope"><div class="line-bot row ng-scope">
                 <div class="col-xs-7 col-md-8">
@@ -119,7 +111,7 @@
                     <a class="btn-expand" title="Show/Hide items details">
                       <span class="glyphicon glyphicon-plus-sign"></span>
                     </a>
-                    <a href="transaction/{{r.tx_id}}" class="ng-binding">{{r ? r.tx_id : ''}}</a>
+                    <a id="tx-id-{{idx}}" href="transaction/{{r.tx_id}}" class="ng-binding">{{r ? r.tx_id : ''}}</a>
                     <span class="btn-copy" clip-copy="tx.txid"></span>
                   </div>
                 </div>
@@ -214,7 +206,7 @@
             </tr>
             <tr>
               <td><strong translate=""><span class="ng-scope">Bitmark Id</span></strong></td>
-              <td ngShow="result.data[0]" class="text-muted text-right ng-binding">{{result.data[0].tx_bitmark_id}}()</td>
+              <td ngShow="result.data[0]" id="tx-bitmark-id" class="text-muted text-right ng-binding">{{result.data[0].tx_bitmark_id}}()</td>
             </tr>
             <tr ngShow="result.data[0].tx_signature" >
               <td><strong translate=""><span class="ng-scope">Signature</span></strong></td>

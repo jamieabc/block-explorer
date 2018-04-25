@@ -97,7 +97,7 @@ describe('AppComponent', () => {
             .toContain(`${defaultData[0].timestamp}`);
 
         // tx id
-        expect(compiled.querySelector('#block-tx-id').textContent)
+        expect(compiled.querySelector('#tx-id-0').textContent)
             .toContain(`${defaultData[0].tx_id}`);
 
         // block offset
@@ -113,10 +113,6 @@ describe('AppComponent', () => {
         expect(assetId.textContent)
             .toContain(`${defaultData[0].asset_id}`);
         expect(assetId.tagName).toEqual('A');
-
-        // bitmark id
-        expect(compiled.querySelector('#tx-bitmark-id').textContent)
-            .toContain(`${defaultData[0].tx_bitmark_id}`);
 
         // sequence
         expect(compiled.querySelector('#asset-sequence').textContent)

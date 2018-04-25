@@ -83,7 +83,8 @@ const converter = obj => {
 
   obj.timestamp = `${month} ${day}, ${year} ${hour}:${minute}:${second} ${am ? "AM" : "PM"}`;
   obj.block_number = block_number;
-  obj.next_block_number = block_number + 1;
+  // should query to get largest/minimum block number, but set it to fix for now
+  obj.next_block_number = block_number === 6762 ? 6762 : block_number + 1;
   obj.prev_block_number = block_number === 2 ? 2 : block_number - 1;
   return obj;
 };
