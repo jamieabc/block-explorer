@@ -1,12 +1,12 @@
-<img *ngIf="result.length === 0" style="display: block; margin-left: 50%; margin-top: 50%; width: 2%" src="./assets/img/loading.gif" />
-<div id="wrap" *ngIf="result.length !== 0">
-  <section class="container ng-scope" data-ng-view="">
+<img *ngIf="result.data.length === 0" style="display: block; margin-left: 50%; margin-top: 50%; width: 2%" src="./assets/img/loading.gif" />
+<div id="wrap" *ngIf="result.data.length !== 0">
+  <section *ngIf="!result.showTransaction" class="container ng-scope" data-ng-view="">
     <section class="ng-scope">
-      <h1 id="block-number" class="ng-binding">Block #{{result[0] ? result[0].block_number : ''}}</h1>
+      <h1 id="block-number" class="ng-binding">Block #{{result.data[0] ? result.data[0].block_number : ''}}</h1>
       <div data-ng-if="block.hash" class="ng-scope">
         <div class="well well-sm ellipsis">
           <strong>BlockHash</strong>
-          <span id="block-hash" class="txid text-muted ng-binding">{{result[0] ? result[0].block_hash : ''}}</span>
+          <span id="block-hash" class="txid text-muted ng-binding">{{result.data[0] ? result.data[0].block_hash : ''}}</span>
           <span class="btn-copy" clip-copy="block.hash"></span>
         </div>
         <h2 translate=""><span class="ng-scope">Summary</span></h2>
@@ -18,7 +18,7 @@
                   <td><strong translate=""><span class="ng-scope">Fingerprint</span></strong></td>
                   <td class="text-right text-muted">
                     <div class="ellipsis">
-                      <span id="asset-fingerprint"class="ng-binding">{{result[0] ? result[0].asset_fingerprint : ''}}</span>
+                      <span id="asset-fingerprint"class="ng-binding">{{result.data[0] ? result.data[0].asset_fingerprint : ''}}</span>
                     </div>
                   </td>
                 </tr>
@@ -26,7 +26,7 @@
                   <td><strong translate=""><span class="ng-scope">Asset Signature</span></strong></td>
                   <td class="text-right text-muted">
                     <div class="ellipsis">
-                      <span id="asset-signature" class="ng-binding">{{result[0] ? result[0].asset_signature : ''}}</span>
+                      <span id="asset-signature" class="ng-binding">{{result.data[0] ? result.data[0].asset_signature : ''}}</span>
                     </div>
                   </td>
                 </tr>
@@ -34,19 +34,19 @@
                   <td><strong translate=""><span class="ng-scope">Asset ID</span></strong></td>
                   <td class="text-right text-muted">
                     <div class="ellipsis">
-                      <span class="ng-binding"><a id="asset-id" href="asset/{{result[0] ? result[0].asset_id : ''}}" class="ng-binding">{{result[0] ? result[0].asset_id : ''}}</a></span>
+                      <span class="ng-binding"><a id="asset-id" href="asset/{{result.data[0] ? result.data[0].asset_id : ''}}" class="ng-binding">{{result.data[0] ? result.data[0].asset_id : ''}}</a></span>
                     </div>
                   </td>
                 </tr>
                 <tr>
                   <td><strong translate=""><span class="ng-scope">Timestamp</span></strong></td>
-                  <td id="tx-timestamp" class="text-right text-muted ng-binding">{{result[0] ? result[0].timestamp : ''}}</td>
+                  <td id="tx-timestamp" class="text-right text-muted ng-binding">{{result.data[0] ? result.data[0].timestamp : ''}}</td>
                 </tr>
                 <tr data-ng-show="block.poolInfo" class="">
                   <td><strong translate=""><span class="ng-scope">Bitmark ID</span></strong></td>
                   <td class="text-right text-muted">
                     <div class="ellipsis">
-                      <span id="tx-bitmark-id" class="ng-binding">{{result[0] ? result[0].tx_bitmark_id : ''}}</span>
+                      <span id="tx-bitmark-id" class="ng-binding">{{result.data[0] ? result.data[0].tx_bitmark_id : ''}}</span>
                     </div>
                   </td>
                 </tr>
@@ -54,13 +54,13 @@
                   <td><strong>Registrant</strong></td>
                   <td class="text-right text-muted">
                     <div class="ellipsis">
-                      <span id="asset-registrant" class="ng-binding">{{result[0] ? result[0].asset_registrant : ''}}</span>
+                      <span id="asset-registrant" class="ng-binding">{{result.data[0] ? result.data[0].asset_registrant : ''}}</span>
                     </div>
                   </td>
                 </tr>
                 <tr data-ng-show="block.previousblockhash" class="">
                   <td><strong translate=""><span class="ng-scope">Previous Block</span></strong></td>
-                  <td class="text-right"><a id="prev-block-number" href="block/{{result[0] ? result[0].prev_block_number : ''}}/transactions" class="ng-binding">{{result[0] ? result[0].prev_block_number : ''}}</a></td>
+                  <td class="text-right"><a id="prev-block-number" href="block/{{result.data[0] ? result.data[0].prev_block_number : ''}}/transactions" class="ng-binding">{{result.data[0] ? result.data[0].prev_block_number : ''}}</a></td>
                 </tr>
               </tbody>
             </table>
@@ -70,25 +70,25 @@
               <tbody>
                 <tr>
                   <td> <strong translate=""><span class="ng-scope">Block Offset</span></strong></td>
-                  <td id="block-offset" class="text-right text-muted ng-binding">{{result[0] ? result[0].tx_block_offset : ''}}</td>
+                  <td id="block-offset" class="text-right text-muted ng-binding">{{result.data[0] ? result.data[0].tx_block_offset : ''}}</td>
                 </tr>
                 <tr>
                   <td> <strong>Description</strong></td>
                   <td class="text-right text-muted">
                     <div class="ellipsis">
-                      <span id="asset-description" class="ng-binding">{{(result[0] && result[0].asset_metadata) ? result[0].asset_metadata.description : ''}}</span>
+                      <span id="asset-description" class="ng-binding">{{(result.data[0] && result.data[0].asset_metadata) ? result.data[0].asset_metadata.description : ''}}</span>
                     </div>
                   </td>
                 </tr>
                 <tr>
                   <td> <strong translate=""><span class="ng-scope">Sequence</span></strong></td>
-                  <td id="asset-sequence" class="text-right text-muted ng-binding">{{result[0] ? result[0].asset_sequence : ''}}</td>
+                  <td id="asset-sequence" class="text-right text-muted ng-binding">{{result.data[0] ? result.data[0].asset_sequence : ''}}</td>
                 </tr>
                 <tr>
                   <td> <strong translate=""><span class="ng-scope">Name</span></strong></td>
                   <td class="text-right text-muted">
                     <div class="ellipsis">
-                      <span id="asset-name" class="ng-binding">{{result[0] ? result[0].asset_name : ''}}</span>
+                      <span id="asset-name" class="ng-binding">{{result.data[0] ? result.data[0].asset_name : ''}}</span>
                     </div>
                   </td>
                 </tr>
@@ -96,13 +96,13 @@
                   <td> <strong>Status</strong></td>
                   <td class="text-right text-muted">
                     <div class="ellipsis">
-                      <span id="asset-status" class="ng-binding">{{result[0] ? result[0].asset_status : ''}}</span>
+                      <span id="asset-status" class="ng-binding">{{result.data[0] ? result.data[0].asset_status : ''}}</span>
                     </div>
                   </td>
                 </tr>
                 <tr class="ng-scope">
                   <td><strong translate=""><span class="ng-scope">Next Block</span></strong></td>
-                  <td class="text-right"><a id="next-block-number" href="block/{{result[0] ? result[0].next_block_number : ''}}/transactions" class="ng-binding">{{result[0] ? result[0].next_block_number : ''}}</a></td>
+                  <td class="text-right"><a id="next-block-number" href="block/{{result.data[0] ? result.data[0].next_block_number : ''}}/transactions" class="ng-binding">{{result.data[0] ? result.data[0].next_block_number : ''}}</a></td>
                 </tr>
               </tbody>
             </table>
@@ -111,12 +111,7 @@
       </div>
       <div data-ng-if="block.hash" data-ng-controller="transactionsController" data-ng-init="load('block')" class="ng-scope">
         <h3 translate=""><span class="ng-scope">Transactions</span></h3>
-
-
-
-
-
-        <div class="ng-scope" *ngFor="let r of result"><div class="alert alert-warning ng-scope ng-hide" translate=""><span class="ng-scope">There are no transactions involving this address.</span></div>
+        <div class="ng-scope" *ngFor="let r of result.data"><div class="alert alert-warning ng-scope ng-hide" translate=""><span class="ng-scope">There are no transactions involving this address.</span></div>
           <div class="block-tx ng-scope">
             <div class="ng-scope"><div class="line-bot row ng-scope">
                 <div class="col-xs-7 col-md-8">
@@ -157,5 +152,119 @@
 
       </div>
     </section>
+  </section>
+
+
+
+
+  <section *ngIf="result.showTransaction" class="ng-scope">
+    <div class="secondary_navbar hidden-xs hidden-sm hidden">
+      <div class="container ng-scope">
+        <div class="col-md-6 col-lg-7 text-left">
+          <h3 translate=""><span class="ng-scope">Transaction</span></h3>
+          <div class="ellipsis">
+            <small class="ng-binding">#{{result.data[0] ? result.data[0].tx_id : ''}}</small>
+            <span class="btn-copy" clip-copy="tx.txid"></span>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-5 text-right">
+          <span class="txvalues txvalues-success ng-binding">
+            <span translate=""><span class="ng-scope">Confirmations</span></span>
+          </span>
+          <span class="txvalues txvalues-danger ng-hide" translate=""><span class="ng-scope">Unconfirmed Transaction!</span></span>
+          <span class="txvalues txvalues-primary ng-binding">BTC</span>
+        </div>
+      </div>
+      <div class="hide_snavbar">
+        <a href="#" data-ng-click="hideSNavbar=!hideSNavbar">
+          <span data-ng-show="hideSNavbar" class="ng-hide"><span class="text-muted glyphicon glyphicon-chevron-down"></span></span>
+          <span class=""><span class="text-muted glyphicon glyphicon-chevron-up"></span></span>
+        </a>
+      </div>
+    </div>
+    <div data-ng-if="tx.txid" class="ng-scope">
+      <h1><span translate=""><span class="ng-scope">Transaction</span></span>
+        <small data-ng-show="from_vin || from_vout" class="ng-hide">
+          <span data-ng-show="from_vin" translate="" class="ng-hide"><span class="ng-scope">Input</span></span>
+          <span data-ng-show="from_vout" translate="" class="ng-hide"><span class="ng-scope">Output</span></span>
+          <span class="ng-binding"></span>
+        </small>
+      </h1>
+      <div data-ng-if="tx.txid" class="ng-scope">
+        <div class="well well-sm ellipsis">
+          <strong translate=""><span class="ng-scope">Transaction</span></strong>
+          <span class="txid text-muted ng-binding">e18c211e5c1442f78bf65250a417adee73841dd547189d583159fab3e3e383e0</span>
+          <span class="btn-copy" clip-copy="tx.txid"></span>
+        </div>
+        <h2 translate=""><span class="ng-scope">Summary</span></h2>
+        <table class="table" style="table-layout: fixed">
+          <tbody>
+            <tr>
+              <td><strong translate=""><span class="ng-scope">Owner</span></strong></td>
+              <td ngShow="result.data[0]" class="text-muted text-right ng-binding">{{result.data[0].tx_owner}}</td>
+            </tr>
+            <tr class="ng-scope">
+              <td><strong translate=""><span class="ng-scope">Sequence</span></strong></td>
+              <td ngShow="result.data[0]" class="text-muted text-right ng-binding">{{result.data[0].tx_sequence}}</td>
+            </tr>
+            <tr>
+              <td><strong translate=""><span class="ng-scope">Modified Time</span></strong></td>
+              <td ngShow="result.data[0].tx_modified_at" class="text-muted text-right ng-binding">{{result.data[0].timestamp}}</td>
+              <td ngShow="!result.data[0].tx_modified_at" class="text-muted text-right ng-hide">N/A</td>
+            </tr>
+            <tr>
+              <td><strong translate=""><span class="ng-scope">Bitmark Id</span></strong></td>
+              <td ngShow="result.data[0]" class="text-muted text-right ng-binding">{{result.data[0].tx_bitmark_id}}()</td>
+            </tr>
+            <tr ngShow="result.data[0].tx_signature" >
+              <td><strong translate=""><span class="ng-scope">Signature</span></strong></td>
+              <td class="text-muted text-right">
+                <div class="ellipsis">
+                  <td class="text-muted text-right">{{result.data[0].tx_signature}}</td>
+                </div>
+              </td>
+
+              <td ngShow="result.data[0].status !== 'confirmed" class="text-muted text-right ng-hide">Unconfirmed</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2 translate=""><span class="ng-scope">Details</span></h2>
+      <div class="block-tx ng-scope" data-ng-if="tx.txid">
+        <!-- ngInclude:  --><div data-ng-include="" src="'views/transaction/tx.html'" class="ng-scope"><div class="line-bot row ng-scope" data-ng-hide="!tx">
+            <div class="col-xs-7 col-md-8">
+              <div class="ellipsis">
+                <a class="btn-expand" title="Show/Hide items details" data-ng-click="itemsExpanded = !itemsExpanded">
+                  <span class="glyphicon glyphicon-plus-sign" data-ng-class="{'glyphicon-minus-sign': itemsExpanded}"></span>
+                </a>
+                <a href="tx/e18c211e5c1442f78bf65250a417adee73841dd547189d583159fab3e3e383e0" class="ng-binding">e18c211e5c1442f78bf65250a417adee73841dd547189d583159fab3e3e383e0</a>
+                <span class="btn-copy" clip-copy="tx.txid"></span>
+              </div>
+            </div>
+            <div class="col-xs-5 col-md-4 text-right text-muted">
+              <div data-ng-show="tx.firstSeenTs" class="ng-hide">
+                <span translate=""><span class="ng-scope">first seen at</span></span>
+                <time class="ng-binding">undefined NaN, NaN NaN:NaN:NaN PM</time>
+              </div>
+              <div data-ng-show="tx.blocktime &amp;&amp; !tx.firstSeenTs" class="">
+                <span translate=""><span class="ng-scope">mined</span></span>
+                <time class="ng-binding">May 2, 2015 10:37:38 AM</time>
+              </div>
+            </div>
+          </div>
+
+          <div class="line-top row ng-scope" data-ng-hide="!tx">
+            <div class="col-xs-6 col-sm-4 col-md-4">
+              <span data-ng-show="!tx.isCoinBase &amp;&amp;  !isNaN(parseFloat(tx.fees))" class="txvalues txvalues-default ng-binding ng-hide"><span translate=""><span class="ng-scope">Fee</span></span>: value error </span>
+            </div>
+            <div class="col-xs-6 col-sm-8 col-md-8 text-right">
+              <span data-ng-show="tx.confirmations" class="txvalues       txvalues-success ng-binding">165263 <span translate=""><span class="ng-scope">Confirmations</span></span></span>
+              <span data-ng-show="!tx.confirmations" class="txvalues txvalues-danger ng-hide" translate=""><span class="ng-scope">Unconfirmed Transaction!</span></span>
+              <span class="txvalues txvalues-primary ng-binding">25.06614383 BTC</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </div>

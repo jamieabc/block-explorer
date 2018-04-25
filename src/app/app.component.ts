@@ -11,16 +11,30 @@ import { DataServiceModel } from './models/DataService.model'
 
 
 export class AppComponent {
-    result: DataServiceModel[];
+    result: {
+        showTransaction: boolean;
+        data: DataServiceModel[];
+    };
 
     constructor(private _dataService: DataService) {
-        this.result = [];
+        this.result = {
+            showTransaction: false,
+            data: []
+        };
+
         const parsedUrl = new URL(window.location.href);
         const { pathname } = parsedUrl;
         const [ category, resourceId ] = pathname.split('/');
 
+        // should use router for transaction page, but not familiar with it
+        // handle it manually
+        const showTransaction = !!(parsedUrl.pathname.match(/\/transaction\/\d+/));
+
         this._dataService
             .getData(parsedUrl)
-            .subscribe(res => this.result = res);
+            .subscribe(res => {
+                this.result.data = res;
+                this.result.showTransaction = showTransaction;
+            });
     }
 }

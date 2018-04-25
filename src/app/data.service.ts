@@ -34,10 +34,10 @@ export class DataService {
                 this._http
                 .get(`http://${parsedUrl.hostname}:3000/api/block/${resourceId}/${indicator}`);
         } else {
-            // get info of latest transaction
+            // get info by transaction id
             transaction =
                 this._http
-                .get(`http://${parsedUrl.hostname}:3000/api/transaction`);
+                .get(`http://${parsedUrl.hostname}:3000/api/transaction/${resourceId}`);
         }
 
         return transaction.map(data => this.result = data.json());
