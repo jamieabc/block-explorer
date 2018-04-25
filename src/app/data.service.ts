@@ -32,8 +32,14 @@ export class DataService {
             transaction =
                 this._http
                 .get(`http://${parsedUrl.hostname}:3000/api/block/${resourceId}/${indicator}`);
-        } else {
+
+        } else if (pathname.match(/^\/transaction\/\d+/)) {
             // get info by transaction id
+            transaction =
+                this._http
+                .get(`http://${parsedUrl.hostname}:3000/api/transaction/${resourceId}`);
+        } else {
+            // get transaction of latest block
             transaction =
                 this._http
                 .get(`http://${parsedUrl.hostname}:3000/api/block/transactions`);

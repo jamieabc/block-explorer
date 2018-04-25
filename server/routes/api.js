@@ -15,7 +15,7 @@ const queryLatestTransactionStr =
   "SELECT * FROM blockchain.transaction INNER JOIN blockchain.asset ON transaction.tx_asset_id = asset.asset_id INNER JOIN blockchain.block ON block.block_number = asset.asset_block_number ORDER BY tx_modified_at DESC LIMIT 1;";
 
 const queryTransactionByIdStr = id =>
-  `SELECT * FROM blockchain.transaction INNER JOIN blockchain.asset ON transaction.tx_asset_id = asset.asset_id INNER JOIN blockchain.block ON block.block_number = asset.asset_block_number WHERE tx_id = '${id}';`;
+  `SELECT * FROM blockchain.transaction LEFT OUTER JOIN blockchain.asset ON transaction.tx_asset_id = asset.asset_id LEFT OUTER JOIN blockchain.block ON block.block_number = asset.asset_block_number WHERE tx_id = '${id}' LIMIT 1;`;
 
 const queryBlockNumberStr = blockNumber =>
   `SELECT * FROM blockchain.block LEFT OUTER JOIN blockchain.asset ON block.block_number = asset.asset_block_number LEFT OUTER JOIN blockchain.transaction ON block.block_number = transaction.tx_block_number WHERE block.block_number = '${blockNumber}' ORDER BY transaction.tx_modified_at LIMIT 1;`;
