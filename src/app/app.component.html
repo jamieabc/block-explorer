@@ -111,80 +111,37 @@
       </div>
       <div data-ng-if="block.hash" data-ng-controller="transactionsController" data-ng-init="load('block')" class="ng-scope">
         <h3 translate=""><span class="ng-scope">Transactions</span></h3>
-        <div data-ng-include="" src="'views/transaction/list.html'" when-scrolled="loadMore()" class="ng-scope"><div class="alert alert-warning ng-scope ng-hide" data-ng-show="!txs[0].txid &amp;&amp; !loading" translate=""><span class="ng-scope">There are no transactions involving this address.</span></div>
-          <div class="block-tx ng-scope" data-ng-show="txs &amp;&amp; txs[0].txid" data-ng-repeat="tx in txs">
-            <div data-ng-include="" src="'views/transaction/tx.html'" class="ng-scope"><div class="line-bot row ng-scope" data-ng-hide="!tx">
+
+
+
+
+
+        <div class="ng-scope"><div class="alert alert-warning ng-scope ng-hide" translate=""><span class="ng-scope">There are no transactions involving this address.</span></div>
+          <div class="block-tx ng-scope">
+            <div class="ng-scope"><div class="line-bot row ng-scope">
                 <div class="col-xs-7 col-md-8">
                   <div class="ellipsis">
-                    <a class="btn-expand" title="Show/Hide items details" data-ng-click="itemsExpanded = !itemsExpanded">
-                      <span class="glyphicon glyphicon-plus-sign" data-ng-class="{'glyphicon-minus-sign': itemsExpanded}"></span>
+                    <a class="btn-expand" title="Show/Hide items details">
+                      <span class="glyphicon glyphicon-plus-sign"></span>
                     </a>
                     <a id="block-tx-id" class="ng-binding">{{result ? result.tx_id : ''}}</a>
                     <span class="btn-copy" clip-copy="tx.txid"></span>
                   </div>
                 </div>
                 <div class="col-xs-5 col-md-4 text-right text-muted">
-                  <div data-ng-show="tx.firstSeenTs" class="ng-hide">
+                  <div class="ng-hide">
                     <span translate=""><span class="ng-scope">first seen at</span></span>
                     <time class="ng-binding"></time>
                   </div>
-                  <div data-ng-show="tx.blocktime &amp;&amp; !tx.firstSeenTs" class="">
+                  <div class="">
                     <span translate=""><span class="ng-scope">mined</span></span>
                     <time class="ng-binding">{{result ? result.timestamp : ''}}</time>
                   </div>
                 </div>
               </div>
-              <div class="row line-mid ng-scope">
-                <div class="col-md-5">
-                  <div class="row ng-scope" data-ng-if="tx.isCoinBase">
-                    <div class="col-md-12 transaction-vin-vout ng-scope" data-ng-repeat="vin in tx.vin">
-                      <div class="ellipsis">
-                        <span translate=""><span class="ng-scope">No Inputs (Newly Generated Coins)</span></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-1 col-xs-12">
-                  <div class="hidden-xs hidden-sm text-center">
-                    <span class="lead glyphicon glyphicon-chevron-right text-muted"></span>
-                  </div>
-                  <div class="hidden-md hidden-lg text-center">
-                    <span class="lead glyphicon glyphicon-chevron-down text-muted"></span>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="row">
-                    <div data-ng-if="!itemsExpanded" data-ng-init="currentOutNoExpanded=0; sizeOutNoExpanded=5" class="ng-scope">
-                      <div data-ng-repeat="vout in tx.voutSimple| startFrom:currentOutNoExpanded*sizeOutNoExpanded | limitTo:sizeOutNoExpanded" class="ng-scope">
-                        <div class="transaction-vin-vout panel panel-default">
-                          <div class="panel-body">
-                            <div class="pull-right btc-value ng-binding" data-ng-class="{'text-success': $root.currentAddr == vout.addr}">
-                              BTC
-                              <span class="text-danger ng-scope" data-ng-show="vout.isSpent" tooltip="Output is spent" tooltip-placement="left">(S)</span>
-                              <span class="text-success ng-scope ng-hide" data-ng-show="!vout.isSpent" tooltip="Output is unspent" tooltip-placement="left">(U)</span>
-                            </div>
-
-                            <div class="ellipsis">
-                              <span data-ng-show="vout.notAddr" class="ng-binding ng-hide">17kkmDx8eSwj2JTTULb3HkJhCmexfysExz</span>
-                              <span class="text-muted ng-binding ng-scope ng-hide" title="Current Bitcoin Address" data-ng-show="address == $root.currentAddr" data-ng-repeat="address in vout.addr.split(',')">17kkmDx8eSwj2JTTULb3HkJhCmexfysExz</span><!-- end ngRepeat: address in vout.addr.split(',') -->
-                              <a href="address/17kkmDx8eSwj2JTTULb3HkJhCmexfysExz" data-ng-show="!vout.notAddr &amp;&amp; address != $root.currentAddr" data-ng-repeat="address in vout.addr.split(',')" class="ng-binding ng-scope"></a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="showmore_collapse text-left ng-hide" data-ng-show="tx.voutSimple.length > 5" data-ng-class="{ 'hidden': itemsExpanded}">
-                        <button type="button" class="btn btn-info btn-sm ng-hide" ng-hide="sizeOutNoExpanded != tx.voutSimple.length" ng-click="currentOutNoExpanded=0; sizeOutNoExpanded=5"><i class="glyphicon glyphicon-chevron-up"></i>
-                          <span translate=""><span class="ng-scope">Show less</span></span></button>
-                        <button type="button" class="btn btn-info btn-sm ng-hide" ng-hide="currentOutNoExpanded >= tx.voutSimple.length/sizeOutNoExpanded - 1" ng-click="currentOutNoExpanded=0; sizeOutNoExpanded=tx.voutSimple.length"><i class="glyphicon glyphicon-chevron-down"></i>
-                          <span translate=""><span class="ng-scope">Show more</span></span></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="line-top row ng-scope" data-ng-hide="!tx">
+              <div class="line-top row ng-scope">
                 <div class="col-xs-6 col-sm-4 col-md-4">
-                  <span data-ng-show="!tx.isCoinBase &amp;&amp;  !isNaN(parseFloat(tx.fees))" class="txvalues txvalues-default ng-binding ng-hide"><span translate=""><span class="ng-scope">Fee</span></span>: value error </span>
+                  <span class="txvalues txvalues-default ng-binding ng-hide"><span translate=""><span class="ng-scope">Fee</span></span>: value error </span>
                 </div>
                 <div class="col-xs-6 col-sm-8 col-md-8 text-right">
                   <span data-ng-show="tx.confirmations" class="txvalues txvalues-success ng-binding"><span translate=""><span class="ng-scope">Confirmations</span></span></span>
@@ -194,12 +151,10 @@
               </div>
             </div>
           </div>
-          <div class="progress progress-striped active ng-scope ng-hide" data-ng-show="loading">
-            <div class="progress-bar progress-bar-info" style="width: 100%">
-              <span translate=""><span class="ng-scope">Loading Transactions...</span></span>
-            </div>
-          </div>
         </div>
+
+
+
       </div>
     </section>
   </section>
