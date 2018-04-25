@@ -193,7 +193,7 @@
       <div data-ng-if="tx.txid" class="ng-scope">
         <div class="well well-sm ellipsis">
           <strong translate=""><span class="ng-scope">Transaction</span></strong>
-          <span class="txid text-muted ng-binding">e18c211e5c1442f78bf65250a417adee73841dd547189d583159fab3e3e383e0</span>
+          <span class="txid text-muted ng-binding">{{result.data[0].tx_id}}</span>
           <span class="btn-copy" clip-copy="tx.txid"></span>
         </div>
         <h2 translate=""><span class="ng-scope">Summary</span></h2>
