@@ -10,6 +10,12 @@ const db = {
   database: "testdb"
 };
 
+// should query to get largest/minimum block number, but set it to fix for now
+const blockConfig = {
+  max: 6762,
+  min: 2
+};
+
 // specific query to retrieve latest transaction
 const queryLatestTransactionStr =
   "SELECT * FROM blockchain.transaction INNER JOIN blockchain.asset ON transaction.tx_asset_id = asset.asset_id INNER JOIN blockchain.block ON block.block_number = asset.asset_block_number ORDER BY tx_modified_at DESC LIMIT 1;";
@@ -83,9 +89,9 @@ const converter = obj => {
 
   obj.timestamp = `${month} ${day}, ${year} ${hour}:${minute}:${second} ${am ? "AM" : "PM"}`;
   obj.block_number = block_number;
-  // should query to get largest/minimum block number, but set it to fix for now
-  obj.next_block_number = block_number === 6762 ? 6762 : block_number + 1;
-  obj.prev_block_number = block_number === 2 ? 2 : block_number - 1;
+
+  obj.next_block_number = block_number === blockConfig.max ? blockConfig.max : block_number + 1;
+  obj.prev_block_number = block_number === blockConfig.min ? blockConfig.min : block_number - 1;
   return obj;
 };
 
