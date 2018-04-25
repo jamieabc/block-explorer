@@ -24,7 +24,7 @@ const queryAssetIdStr = assetId =>
   `SELECT * FROM blockchain.asset INNER JOIN blockchain.transaction ON transaction.tx_asset_id = asset.asset_id INNER JOIN blockchain.block ON block.block_number = asset.asset_block_number WHERE asset.asset_id = '${assetId}' ORDER BY tx_modified_at LIMIT 1;`;
 
 const queryLatestBlockLatestTransaction =
-  "SELECT * FROM blockchain.transaction LEFT OUTER JOIN blockchain.asset ON transaction.tx_asset_id = asset.asset_id LEFT OUTER JOIN blockchain.block ON transaction.tx_block_number = block.block_number  WHERE transaction.tx_block_number = (SELECT block_number FROM blockchain.block WHERE block.block_number > 1 ORDER BY block.block_created_at DESC LIMIT 1);";
+  "SELECT * FROM blockchain.transaction LEFT OUTER JOIN blockchain.asset ON transaction.tx_asset_id = asset.asset_id LEFT OUTER JOIN blockchain.block ON transaction.tx_block_number = block.block_number  WHERE transaction.tx_block_number = (SELECT block_number FROM blockchain.block WHERE block.block_number > 1 ORDER BY block.block_created_at DESC LIMIT 1) ORDER BY transaction.tx_modified_at DESC;";
 
 const queryLatestTransactionsInBlockStr = blockNumber =>
   `SELECT * FROM blockchain.transaction LEFT OUTER JOIN blockchain.asset ON transaction.tx_asset_id = asset.asset_id LEFT OUTER JOIN blockchain.block ON transaction.tx_block_number = block.block_number  WHERE transaction.tx_block_number = '${blockNumber}' ORDER BY transaction.tx_block_offset DESC LIMIT 1;`;
@@ -97,7 +97,7 @@ router.get("/transaction/:transactionId", (req, res) => {
   connectDB(queryFactory, queryTransactionByIdStr(transactionId), res);
 });
 
-router.get("/block/transaction", (req, res) => {
+router.get("/block/transactions", (req, res) => {
   connectDB(queryFactory, queryLatestBlockLatestTransaction, res);
 });
 

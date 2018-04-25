@@ -21,7 +21,6 @@ export class DataService {
         const { pathname } = parsedUrl;
         const [ prefix, category, resourceId, indicator ] = pathname.split('/');
         let transaction;
-        console.log(parsedUrl);
 
         if (category.includes('asset')) {
             // get info by asset id
@@ -37,7 +36,7 @@ export class DataService {
             // get info by transaction id
             transaction =
                 this._http
-                .get(`http://${parsedUrl.hostname}:3000/api/transaction/${resourceId}`);
+                .get(`http://${parsedUrl.hostname}:3000/api/block/transactions`);
         }
 
         return transaction.map(data => this.result = data.json());
