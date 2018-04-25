@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { AppComponent } from './app.component';
 
@@ -13,7 +14,8 @@ import { DataService } from './data.service';
   ],
   imports: [
       BrowserModule,
-      HttpModule
+      HttpModule,
+      InfiniteScrollModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
