@@ -1,14 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const { Client } = require("pg");
+const fs = require("fs");
 
-// db configuration
-const db = {
-  user: "postgres",
-  password: "fggrftdjtgdpjwpsgkwvx",
-  host: "taa.devel.bitmark.com",
-  database: "testdb"
-};
+const dbConfigFileName = "db.json";
+
+// db settings, it should be located at {project_root}/server/db.json
+const db = require(`../${dbConfigFileName}`);
 
 // should query to get largest/minimum block number, but set it to fix for now
 const blockConfig = {
@@ -45,7 +43,7 @@ const sendError = (err, res) => {
     data: [],
     message: typeof err == "object" ? err.message : err
   };
-  res.status(501).join(response);
+  res.status(501).send(JSON.stringify(response));
 };
 
 // connect to postgres server
