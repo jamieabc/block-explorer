@@ -11,15 +11,16 @@ import { DataServiceModel } from './models/DataService.model'
 
 
 export class AppComponent {
-    result: DataServiceModel;
+    result: DataServiceModel[];
 
     constructor(private _dataService: DataService) {
+        this.result = [];
         const parsedUrl = new URL(window.location.href);
         const { pathname } = parsedUrl;
         const [ category, resourceId ] = pathname.split('/');
 
         this._dataService
             .getData(parsedUrl)
-            .subscribe(res => this.result = res[0]);
+            .subscribe(res => this.result = res);
     }
 }
