@@ -229,42 +229,6 @@
           </tbody>
         </table>
       </div>
-      <h2 translate=""><span class="ng-scope">Details</span></h2>
-      <div class="block-tx ng-scope" data-ng-if="tx.txid">
-        <!-- ngInclude:  --><div data-ng-include="" src="'views/transaction/tx.html'" class="ng-scope"><div class="line-bot row ng-scope" data-ng-hide="!tx">
-            <div class="col-xs-7 col-md-8">
-              <div class="ellipsis">
-                <a class="btn-expand" title="Show/Hide items details" data-ng-click="itemsExpanded = !itemsExpanded">
-                  <span class="glyphicon glyphicon-plus-sign" data-ng-class="{'glyphicon-minus-sign': itemsExpanded}"></span>
-                </a>
-                <a href="tx/e18c211e5c1442f78bf65250a417adee73841dd547189d583159fab3e3e383e0" class="ng-binding">e18c211e5c1442f78bf65250a417adee73841dd547189d583159fab3e3e383e0</a>
-                <span class="btn-copy" clip-copy="tx.txid"></span>
-              </div>
-            </div>
-            <div class="col-xs-5 col-md-4 text-right text-muted">
-              <div data-ng-show="tx.firstSeenTs" class="ng-hide">
-                <span translate=""><span class="ng-scope">first seen at</span></span>
-                <time class="ng-binding">undefined NaN, NaN NaN:NaN:NaN PM</time>
-              </div>
-              <div data-ng-show="tx.blocktime &amp;&amp; !tx.firstSeenTs" class="">
-                <span translate=""><span class="ng-scope">mined</span></span>
-                <time class="ng-binding">May 2, 2015 10:37:38 AM</time>
-              </div>
-            </div>
-          </div>
-
-          <div class="line-top row ng-scope" data-ng-hide="!tx">
-            <div class="col-xs-6 col-sm-4 col-md-4">
-              <span data-ng-show="!tx.isCoinBase &amp;&amp;  !isNaN(parseFloat(tx.fees))" class="txvalues txvalues-default ng-binding ng-hide"><span translate=""><span class="ng-scope">Fee</span></span>: value error </span>
-            </div>
-            <div class="col-xs-6 col-sm-8 col-md-8 text-right">
-              <span data-ng-show="tx.confirmations" class="txvalues       txvalues-success ng-binding">165263 <span translate=""><span class="ng-scope">Confirmations</span></span></span>
-              <span data-ng-show="!tx.confirmations" class="txvalues txvalues-danger ng-hide" translate=""><span class="ng-scope">Unconfirmed Transaction!</span></span>
-              <span class="txvalues txvalues-primary ng-binding">25.06614383 BTC</span>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 </div>
