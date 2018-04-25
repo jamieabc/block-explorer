@@ -43,9 +43,22 @@ export class AppComponent {
         // handle it manually
         const showTransaction = !!(parsedUrl.pathname.match(/\/transaction\/\d+/));
 
+        this.querying = true;
         this._dataService
             .getData(parsedUrl)
             .subscribe(res => {
+                // not enough data, end of query
+                if (res.length < this.query.limit) {
+                    this.endOfData = true;
+                }
+
+                // as long as data exist, store it
+                if (res.length) {
+                    const newArr = this.result.data.concat(res);
+                    this.result.data = newArr;
+                }
+                this.querying = false;
+
                 this.result.data = res;
                 this.result.showTransaction = showTransaction;
             });
