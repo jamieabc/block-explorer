@@ -60,7 +60,7 @@
                 </tr>
                 <tr data-ng-show="block.previousblockhash" class="">
                   <td><strong translate=""><span class="ng-scope">Previous Block</span></strong></td>
-                  <td class="text-right"><a id="prev-block-number" href="block/{{result[0] ? result[0].prev_block_number : ''}}/transaction" class="ng-binding">{{result[0] ? result[0].prev_block_number : ''}}</a></td>
+                  <td class="text-right"><a id="prev-block-number" href="block/{{result[0] ? result[0].prev_block_number : ''}}/transactions" class="ng-binding">{{result[0] ? result[0].prev_block_number : ''}}</a></td>
                 </tr>
               </tbody>
             </table>
@@ -102,7 +102,7 @@
                 </tr>
                 <tr class="ng-scope">
                   <td><strong translate=""><span class="ng-scope">Next Block</span></strong></td>
-                  <td class="text-right"><a id="next-block-number" href="block/{{result[0] ? result[0].next_block_number : ''}}/transaction" class="ng-binding">{{result[0] ? result[0].next_block_number : ''}}</a></td>
+                  <td class="text-right"><a id="next-block-number" href="block/{{result[0] ? result[0].next_block_number : ''}}/transactions" class="ng-binding">{{result[0] ? result[0].next_block_number : ''}}</a></td>
                 </tr>
               </tbody>
             </table>
@@ -116,7 +116,7 @@
 
 
 
-        <div class="ng-scope"><div class="alert alert-warning ng-scope ng-hide" translate=""><span class="ng-scope">There are no transactions involving this address.</span></div>
+        <div class="ng-scope" *ngFor="let r of result"><div class="alert alert-warning ng-scope ng-hide" translate=""><span class="ng-scope">There are no transactions involving this address.</span></div>
           <div class="block-tx ng-scope">
             <div class="ng-scope"><div class="line-bot row ng-scope">
                 <div class="col-xs-7 col-md-8">
@@ -124,7 +124,7 @@
                     <a class="btn-expand" title="Show/Hide items details">
                       <span class="glyphicon glyphicon-plus-sign"></span>
                     </a>
-                    <a id="block-tx-id" class="ng-binding">{{result[0] ? result[0].tx_id : ''}}</a>
+                    <a class="ng-binding">{{r ? r.tx_id : ''}}</a>
                     <span class="btn-copy" clip-copy="tx.txid"></span>
                   </div>
                 </div>
@@ -135,7 +135,7 @@
                   </div>
                   <div class="">
                     <span translate=""><span class="ng-scope">mined</span></span>
-                    <time class="ng-binding">{{result[0] ? result[0].timestamp : ''}}</time>
+                    <time class="ng-binding">{{r ? r.timestamp : ''}}</time>
                   </div>
                 </div>
               </div>
