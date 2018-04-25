@@ -33,8 +33,8 @@ const queryLatestBlockLatestTransaction =
 const queryLatestTransactionsInBlockStr = blockNumber =>
   `SELECT * FROM blockchain.transaction LEFT OUTER JOIN blockchain.asset ON transaction.tx_asset_id = asset.asset_id LEFT OUTER JOIN blockchain.block ON transaction.tx_block_number = block.block_number  WHERE transaction.tx_block_number = '${blockNumber}' ORDER BY transaction.tx_block_offset DESC LIMIT 1;`;
 
-const queryTransactionsInBlockStr = blockNumber =>
-  `SELECT * FROM blockchain.transaction LEFT OUTER JOIN blockchain.asset ON transaction.tx_asset_id = asset.asset_id LEFT OUTER JOIN blockchain.block ON transaction.tx_block_number = block.block_number WHERE transaction.tx_block_number = '${blockNumber}';`;
+const queryTransactionsInBlockStr = (blockNumber, offset, limit) =>
+  `SELECT * FROM blockchain.transaction LEFT OUTER JOIN blockchain.asset ON transaction.tx_asset_id = asset.asset_id LEFT OUTER JOIN blockchain.block ON transaction.tx_block_number = block.block_number WHERE transaction.tx_block_number = '${blockNumber}' LIMIT ${limit} OFFSET ${offset};`;
 
 // error response
 const sendError = (err, res) => {
@@ -108,7 +108,9 @@ router.get("/block/transactions", (req, res) => {
 
 router.get("/block/:blockNumber/transactions", (req, res) => {
   const { blockNumber } = req.params;
-  connectDB(queryFactory, queryTransactionsInBlockStr(blockNumber), res);
+  const { limit = 10, offset = 0 } = req.query;
+
+  connectDB(queryFactory, queryTransactionsInBlockStr(blockNumber, offset, limit), res);
 });
 
 router.get("/block/:blockNumber/transaction", (req, res) => {
