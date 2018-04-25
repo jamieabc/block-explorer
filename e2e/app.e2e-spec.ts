@@ -5,7 +5,7 @@ describe('block-explorer App', () => {
     let page: AppPage;
     const defaultData: DataServiceModel = {
         block_number: 6762,
-        next_block_number: 6763,
+        next_block_number: 6762,
         block_hash: '00bb63fedc40b80664df4b84b748c41adf47fd439ab8ed297c8f178fedc7292c',
         timestamp: 'Apr 19, 2018 11:21:57 AM',
         tx_id: '739c580666bfcb4dc598b41b83ec244f189d2e7cf0b6e1bfa6f2f673b3ff1521',
