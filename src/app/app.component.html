@@ -60,7 +60,7 @@
                 </tr>
                 <tr data-ng-show="block.previousblockhash" class="">
                   <td><strong translate=""><span class="ng-scope">Previous Block</span></strong></td>
-                  <td class="text-right"><a id="prev-block-number" href="block/{{result ? result.prev_block_number : ''}}" class="ng-binding">{{result ? result.prev_block_number : ''}}</a></td>
+                  <td class="text-right"><a id="prev-block-number" href="block/{{result ? result.prev_block_number : ''}}/transaction" class="ng-binding">{{result ? result.prev_block_number : ''}}</a></td>
                 </tr>
               </tbody>
             </table>
@@ -102,7 +102,7 @@
                 </tr>
                 <tr class="ng-scope">
                   <td><strong translate=""><span class="ng-scope">Next Block</span></strong></td>
-                  <td class="text-right"><a id="next-block-number" href="block/{{result.next_block_number}}" class="ng-binding">{{result ? result.next_block_number : ''}}</a></td>
+                  <td class="text-right"><a id="next-block-number" href="block/{{result.next_block_number}}/transaction" class="ng-binding">{{result ? result.next_block_number : ''}}</a></td>
                 </tr>
               </tbody>
             </table>

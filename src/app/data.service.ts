@@ -19,21 +19,25 @@ export class DataService {
 
     getData(parsedUrl: UrlModel) {
         const { pathname } = parsedUrl;
-        const [ prefix, category, resourceId ] = pathname.split('/');
+        const [ prefix, category, resourceId, indicator ] = pathname.split('/');
         let transaction;
+        console.log(parsedUrl);
 
-        if (['asset', 'block'].includes(category)) {
+        if (category.includes('asset')) {
+            // get info by asset id
             transaction =
                 this._http
-                .get(`http://${parsedUrl.hostname}:3000/api/${category}/${resourceId}`);
-        } else if (category === 'block_transactions') {
+                .get(`http://${parsedUrl.hostname}:3000/api/asset/${resourceId}`);
+        } else if (category === 'block') {
+            // get transaction(s) in a block
             transaction =
                 this._http
-                .get(`http://${parsedUrl.hostname}:3000/api/block_transactions/${resourceId === 'latest' ? 'latest' : resourceId}`);
+                .get(`http://${parsedUrl.hostname}:3000/api/block/${resourceId}/${indicator}`);
         } else {
+            // get info of latest transaction
             transaction =
                 this._http
-                .get(`http://${parsedUrl.hostname}:3000/api/latest_transaction`);
+                .get(`http://${parsedUrl.hostname}:3000/api/transaction`);
         }
 
         return transaction.map(data => this.result = data.json());
