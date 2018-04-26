@@ -103,7 +103,7 @@
       </div>
       <div data-ng-controller="transactionsController" data-ng-init="load('block')" class="ng-scope">
         <h3 translate=""><span class="ng-scope">Transactions</span></h3>
-        <div infiniteScroll [infiniteScrollDistance]="0" [infiniteScrollThrottle]="1000" (scrolled)="loadMoreTransactions()" class="ng-scope" *ngFor="let r of result.data; let idx = index;"><div class="alert alert-warning ng-scope ng-hide" translate=""><span class="ng-scope">There are no transactions involving this address.</span></div>
+        <div infiniteScroll (scrolled)="loadMoreTransactions()" class="ng-scope" *ngFor="let r of result.data; let idx = index;"><div class="alert alert-warning ng-scope ng-hide" translate=""><span class="ng-scope">There are no transactions involving this address.</span></div>
           <div class="block-tx ng-scope">
             <div class="ng-scope"><div class="line-bot row ng-scope">
                 <div class="col-xs-7 col-md-8">

@@ -10,7 +10,6 @@ import { HttpModule,
        } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { of } from 'rxjs/observable/of';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 describe('AppComponent', () => {
 
@@ -67,7 +66,7 @@ describe('AppComponent', () => {
             declarations: [
                 AppComponent
             ],
-            imports: [ HttpModule, InfiniteScrollModule ],
+            imports: [ HttpModule ],
             providers: [
                 DataService,
                 { provide: XHRBackend, useClass: MockBackend }
@@ -87,7 +86,7 @@ describe('AppComponent', () => {
         expect(component).toBeTruthy();
     }));
 
-    xit('should render title with block number', async(() => {
+    it('should render title with block number', async(() => {
         const fixture = TestBed.createComponent(AppComponent);
         fixture.detectChanges();
         const compiled = fixture.debugElement.nativeElement;
@@ -95,7 +94,7 @@ describe('AppComponent', () => {
             .toContain(`#${defaultData[0].block_number}`);
     }));
 
-    xit('should render correct data', async(() => {
+    it('should render correct data', async(() => {
         const fixture = TestBed.createComponent(AppComponent);
         fixture.detectChanges();
         const compiled = fixture.debugElement.nativeElement;
@@ -151,11 +150,23 @@ describe('AppComponent', () => {
         expect(prevBlockNumber.tagName).toEqual('A');
     }));
 
-    xit('should increase offset by 10 when loadMoreTransactions is called', () => {
-        const component: AppComponent =
-            TestBed.createComponent(AppComponent).componentInstance;
-        const originalOffset = component.query.offset;
+    it('should more transaction when #loadMoreTransactions is called', () => {
+        const fixture = TestBed.createComponent(AppComponent);
+        const component = fixture.componentInstance;
+        const compiled = fixture.debugElement.nativeElement;
+
+        // only one transaction exist
+        fixture.detectChanges();
+        expect(compiled.querySelector('#tx-id-1')).toBeFalsy();
+
+        component.endOfData = false;
+
         component.loadMoreTransactions();
-        expect(component.query.offset).toEqual(originalOffset + 10);
+        const originalOffset: number = component.query.offset;
+        fixture.detectChanges();
+
+        // after loading more transactions, two transactions exist
+        expect(compiled.querySelector('#tx-id-1')).toBeTruthy();
+        expect(compiled.querySelector('#tx-id-2')).toBeFalsy();
     });
 });
